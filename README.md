@@ -1,0 +1,2 @@
+# newsportal
+Newsportal Management system
