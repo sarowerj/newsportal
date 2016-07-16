@@ -1,0 +1,944 @@
+<!DOCTYPE HTML>
+<!-- BEGIN html -->
+<html lang = "en">
+	<!-- BEGIN head -->
+	
+<!-- Mirrored from legatus.orange-themes.com/html/post-breaking.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Feb 2016 22:29:50 GMT -->
+<head>
+		<title>Legatus | Post View With Breaking News</title>
+		<!-- Meta Tags -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+		<!-- Stylesheets -->
+		<link type="text/css" rel="stylesheet" href="css/reset.css" />
+		<link type="text/css" rel="stylesheet" href="css/main-stylesheet.css" />
+		<link type="text/css" rel="stylesheet" href="css/shortcode.css" />
+		<link type="text/css" rel="stylesheet" href="css/fonts.css" />
+		<link type="text/css" rel="stylesheet" href="css/retina.css" />
+		<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" href="css/ie-transparecy.css" />
+		<![endif]-->
+		<link type="text/css" id="style-responsive" rel="stylesheet" media="screen" href="css/responsive/desktop.css" />
+		<!-- Scripts -->
+		<script type="text/javascript" src="jscript/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript">
+			var iPhoneVertical = Array(null,320,"css/responsive/phoneverticald41d.css?"+Date());
+			var iPhoneHorizontal = Array(321,767,"css/responsive/phonehorizontald41d.css?"+Date());
+			var iPad = Array(768,1000,"css/responsive/ipadd41d.css?"+Date());
+			var dekstop = Array(1001,null,"css/responsive/desktopd41d.css?"+Date());
+			
+			// Legatus Slider Options
+			var _legatus_slider_autostart = true;	// Autostart Slider (false / true)
+			var _legatus_slider_interval = 5000;	// Autoslide Interval (Def = 5000)
+			var _legatus_slider_loading = true;		// Autoslide With Loading Bar (false / true)
+		</script>
+		<link type="text/css" rel="stylesheet" href="css/demo-settings.css" />
+	<!-- END head -->
+	</head>
+	<!-- BEGIN body -->
+	<body>
+		<!-- BEGIN .boxed -->
+		<!-- <div class="boxed active"> -->
+		<div class="boxed">
+			
+			<!-- BEGIN .header -->
+			<div class="header">
+				
+				<!-- BEGIN .header-very-top -->
+				<div class="header-very-top">
+					<div class="wrapper">
+						
+						<div class="left">
+							<ul class="very-top-menu">
+								<li><a href="index.html" class="icon-text">&#8962;</a></li>
+								<li><a href="blog.html"><span>Blog</span></a>
+									<ul class="sub-menu">
+										<li><a href="blog.html">Blog View #1 (Large/Small)</a></li>
+										<li><a href="blog-2.html">Blog View #2 (Small/Small)</a></li>
+										<li><a href="blog-3.html">Blog View #3 (Large/Large)</a></li>
+										<li><a href="blog-4.html">Blog View #4 (Classic)</a></li>
+										<li><a href="blog-5.html">Blog View #5 (Classic Big)</a></li>
+										<li><a href="blog-6.html">Blog View with Slider</a></li>
+										<li><a href="category.html">Category View</a></li>
+									</ul>
+								</li>
+								<li><a href="post.html"><span>Post</span></a>
+									<ul class="sub-menu">
+										<li><a href="post.html">Post With Large Photo</a></li>
+										<li><a href="post-no-photo.html">Post With No Photo</a></li>
+										<li><a href="post-with-comments.html">Post With 4 Comments</a></li>
+										<li><a href="post-no-comments.html">Post With No Comments</a></li>
+										<li><a href="post-no-tags.html">Post With No Tags</a></li>
+										<li><a href="post-left.html">Post With Sidebar On Left</a></li>
+										<li><a href="post-breaking.html">Post With Breaking News</a></li>
+									</ul>
+								</li>
+								<li><a href="shortcodes.html"><span>Shortcodes</span></a>
+									<ul class="sub-menu">
+										<li><a href="shortcodes.html#image-caption">Image With Caption</a></li>
+										<li><a href="shortcodes.html#youtube">Youtube Video</a></li>
+										<li><a href="shortcodes.html#gallery">Gallery Preview</a></li>
+										<li><a href="shortcodes.html#spacers">Spacers</a></li>
+										<li><a href="shortcodes.html#quotes">Quotes</a></li>
+										<li><a href="shortcodes.html#list">Lists</a></li>
+										<li><a href="shortcodes.html#buttons">Buttons</a></li>
+										<li><a href="shortcodes.html#table">Table</a></li>
+										<li><a href="shortcodes.html#paragraph">Paragraph</a></li>
+										<li><a href="shortcodes.html#marker">Marker</a></li>
+										<li><a href="shortcodes.html#tabs">Tabs</a></li>
+										<li><a href="shortcodes.html#accortion">Accordion</a></li>
+										<li><a href="shortcodes.html#social">Social Icons</a></li>
+										<li><a href="shortcodes.html#alert">Alert Messages</a></li>
+										<li><a href="shortcodes.html#toggle">Toggles</a></li>
+									</ul>
+								</li>
+								<li><a href="photo-gallery.html">Photo Gallery</a></li>
+								<li><a href="error-404.html">Error 404</a></li>
+								<li><a href="archive.html">Archive</a></li>
+								<li><a href="contact-us.html">Contact Us</a></li>
+							</ul>
+						</div>
+
+						<div class="right">
+							<div class="weather-report">
+								<span>Weather</span>
+								<b>Latvia, Riga</b>
+								<img src="images/weather-clouds.png" alt="" />
+
+								<!--
+									VERY HOT - #e33f24
+									HOT - #e87c2d
+									ZERO - #bbbaa7
+									COLD - #7ebecc
+									VERY COLD - #1c87c4
+								-->
+
+								<!-- <font class="weather-meter" style="background: #e33f24;">+20&deg;</font> -->
+								<font class="weather-meter" style="background: #e87c2d;">+10&deg;</font>
+								<!-- <font class="weather-meter" style="background: #bbbaa7;">0&deg;</font> -->
+								<!-- <font class="weather-meter" style="background: #7ebecc;">-10&deg;</font> -->
+								<!-- <font class="weather-meter" style="background: #1c87c4;">-20&deg;</font> -->
+							</div>
+						</div>
+
+						<div class="clear-float"></div>
+						
+					</div>
+					<div class="double-split"></div>
+				<!-- END .header-very-top -->
+				</div>
+
+				<!-- BEGIN .header-middle -->
+				<div class="header-middle">
+					<div class="wrapper">
+						
+						<!-- <div class="logo-text">
+							<h1><a href="index.html">LEGATUS</a></h1>
+						</div> -->
+						
+						<div class="logo-image">
+							<h1>LEGATUS</h1>
+							<a href="index.html"><img class="logo" src="images/logo.png" alt="" /></a>
+						</div>
+
+						<div class="banner">
+							<div class="banner-block">
+								<a href="#"><img src="images/banner-468x60.jpg" alt="" /></a>
+							</div>
+							<div class="banner-info">
+								<a href="contact-us.html" class="sponsored"><span class="icon-default">&nbsp;</span>Sponsored Advert<span class="icon-default">&nbsp;</span></a>
+							</div>
+						</div>
+
+						<div class="clear-float"></div>
+						
+					</div>
+				<!-- END .header-middle -->
+				</div>
+
+				<!-- BEGIN .header-menu -->
+				<div class="header-menu">
+					<div class="wrapper">
+						
+						<ul class="main-menu">
+														<li style="background:#264c84;color:#264c84;"><a href="index.html">News<span>&nbsp;</span></a>
+								<ul class="sub-menu">
+									<li><a href="index-2.html">Home 2</a></li>
+									<li><a href="index-blocks.html">Home 3</a></li>
+								</ul>
+							</li>
+							<li style="background:#9f3819;color:#9f3819;"><a href="category.html">Technology<span>&nbsp;</span></a>
+								<ul class="sub-menu">
+									<li><a href="category.html">Personal Computers</a></li>
+									<li><a href="category.html">Digital Photo Cameras<span>&nbsp;</span></a>
+										<ul class="sub-menu">
+											<li><a href="category.html">Personal Computers</a></li>
+											<li><a href="category.html">Digital Photo Cameras</a></li>
+											<li><a href="category.html">Vintage Time machines</a></li>
+										</ul>
+									</li>
+									<li><a href="category.html">Vintage Time machines</a></li>
+								</ul>
+							</li>
+							<li style="background:#6d8b13;color:#6d8b13;"><a href="category.html">Entertainment</a></li>
+							<li style="background:#a21d1d;color:#a21d1d;"><a href="category.html">Sport News</a></li>
+							<li style="background:#338aa6;color:#338aa6;"><a href="category.html">Business</a></li>
+							<li style="background:#4b4b4b;color:#4b4b4b;"><a href="category.html">Gossips</a></li>
+						</ul>
+
+						<div class="right menu-search">
+							<form action="http://legatus.orange-themes.com/html/search.html" method="get">
+								<input type="text" placeholder="Search something.." value="" name="s" />
+								<input type="submit" class="search-button" value="&nbsp;" />
+							</form>
+						</div>
+						
+						<div class="clear-float"></div>
+
+					</div>
+				<!-- END .header-menu -->
+				</div>
+				
+
+				<!-- BEGIN .header-undermenu -->
+				<div class="header-undermenu">
+					<div class="wrapper">
+						
+						<ul class="secondary-menu">
+							<li><a href="category.html">Constituto</a></li>
+							<li><a href="category.html">Vituperata</a></li>
+							<li><a href="category.html">Efficiantur</a></li>
+							<li><a href="category.html">Legendos</a></li>
+							<li><a href="category.html">Ocurreret</a></li>
+							<li><a href="category.html">Omnium</a></li>
+							<li><a href="category.html">Legendos</a></li>
+							<li><a href="category.html">Prodesset</a></li>
+							<li><a href="category.html">Quando</a></li>
+							<li><a href="category.html">Aliquando</a></li>
+							<li><a href="category.html">Vituperata</a></li>
+							<li><a href="category.html">Gloriatur</a></li>
+						</ul>
+						
+						<div class="clear-float"></div>
+
+					</div>
+				<!-- END .header-undermenu -->
+				</div>
+				
+			<!-- END .header -->
+			</div>
+			
+			<!-- BEGIN .content -->
+			<div class="content">
+				
+				<!-- BEGIN .wrapper -->
+				<div class="wrapper">
+						
+					<!-- BEGIN .main-content-left -->
+					<div class="main-content-left">
+
+						<div class="social-icons-float">
+
+							<span class="soc-header">Share</span>
+
+							<span class="social-icon">
+								<span class="social-count">293<span class="social-arrow">&nbsp;</span></span>
+								<a href="#" class="social-button" style="background:#495fbd;"><span class="icon-text">&#62220;</span><font>Share</font></a>
+							</span>
+
+							<span class="social-icon">
+								<span class="social-count">34<span class="social-arrow">&nbsp;</span></span>
+								<a href="#" class="social-button" style="background:#43bedd;"><span class="icon-text">&#62217;</span><font>Tweet</font></a>
+							</span>
+
+							<span class="social-icon">
+								<span class="social-count">29<span class="social-arrow">&nbsp;</span></span>
+								<a href="#" class="social-button" style="background:#df6149;"><span class="icon-text">&#62223;</span><font>+1</font></a>
+							</span>
+
+							<span class="social-icon">
+								<span class="social-count">18<span class="social-arrow">&nbsp;</span></span>
+								<a href="#" class="social-button" style="background:#d23131;"><span class="icon-text">&#62226;</span><font>Share</font></a>
+							</span>
+
+							<span class="social-icon">
+								<span class="social-count">170<span class="social-arrow">&nbsp;</span></span>
+								<a href="#" class="social-button" style="background:#264c84;"><span class="icon-text">&#62232;</span><font>Share</font></a>
+							</span>
+
+						</div>
+						
+						<div class="content-article-title">
+							<h2>Latest News</h2>
+							<div class="right-title-side">
+								<a href="index.html"><span class="icon-text">&#8962;</span>Back To Homepage</a>
+								<a href="#" class="orange"><span class="icon-text">&#59194;</span>Subscribe To RSS Feed</a>
+							</div>
+						</div>
+
+						<div class="breaking-news" style="margin-top:-15px;">
+							
+							<div class="breaking-title"><span class="breaking-icon">&nbsp;</span><b>Breaking News</b><div class="the-corner"></div></div>
+
+							<div class="breaking-block">
+								<ul>
+									<li><a href="post.html">Lorem ipsum dolor sit amet et dolor adolescens sit</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+									<li><a href="post.html">Alia corpora ea vim, te erant viris bonorum sit, ei doming prompta vis</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+									<li><a href="post.html">Nam in mundi tractatos, audire atomorum qualisque ea eos</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+								</ul>
+							</div>
+							
+							<div class="breaking-controls"><a href="#" class="breaking-arrow-left">&nbsp;</a><a href="#" class="breaking-arrow-right">&nbsp;</a><div class="clear-float"></div><div class="the-corner"></div></div>
+							
+						</div>
+						
+						<!-- <div class="breaking-news" style="margin-top:-15px;">
+							
+							<div class="breaking-title"><span class="breaking-icon">&nbsp;</span><b>Breaking News</b><div class="the-corner"></div></div>
+
+							<div class="breaking-block">
+								<ul>
+									<li><a href="post.html">Lorem ipsum dolor sit amet et dolor adolescens sit</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+									<li><a href="post.html">Alia corpora ea vim, te erant viris bonorum sit, ei doming prompta vis</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+									<li><a href="post.html">Nam in mundi tractatos, audire atomorum qualisque ea eos</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+								</ul>
+							</div>
+							
+							<div class="breaking-controls"><a href="#" class="breaking-arrow-left">&nbsp;</a><a href="#" class="breaking-arrow-right">&nbsp;</a><div class="clear-float"></div><div class="the-corner"></div></div>
+							
+						</div> -->
+
+						<div class="main-article-content">
+							<h2 class="article-title">Qui wisi aliquam gubergren no, sed ei omnes expetenda</h2>
+							
+							<div class="article-photo">
+								<img src="images/photos/image-60.jpg" class="setborder" alt="" />
+							</div>
+							
+							<!-- BEGIN .article-controls -->
+							<div class="article-controls">
+
+								<div class="date">
+									<div class="calendar-date">April 25</div>
+									<div class="calendar-time">
+										<font>12:53</font>
+										<font>2013</font>
+									</div>
+								</div>
+
+								<div class="right-side">
+									<div class="colored">
+										<a href="javascript:printArticle();" class="icon-link"><span class="icon-text">&#59158;</span>Print This Article</a>
+										<a href="#" class="icon-link"><span class="icon-text">&#59196;</span>Share it With Friends</a>
+									</div>
+
+									<div>
+										<a href="#" class="icon-link"><span class="icon-text">&#128100;</span>by Orange-Themes</a>
+										<a href="#" class="icon-link"><span class="icon-text">&#59160;</span>39 comments</a>
+									</div>
+								</div>
+
+								<div class="clear-float"></div>
+
+							<!-- END .article-controls -->
+							</div>
+
+							<!-- BEGIN .shortcode-content -->
+							<div class="shortcode-content">
+								<p>Lorem ipsum dolor sit amet, eu altera suscipit suavitate vix. Cum reformidans consectetuer ei, his melius legimus constituam at. Duo cu sale dignissim, et noluisse luptatum has. In aeque nominati theophrastus has, vel id labore sententiae, et prima aliquip nec. Et qui nominati complectitur.</p>
+
+								<p>Usu te dico deserunt persecuti. Minimum delicata qui an. Ut errem prodesset percipitur pri, errem possim aliquam eu pro. Sit etiam apeirian no. Duo alia congue diceret cu, ad primis fuisset reprehendunt sed. Pro eu minim detracto consectetuer, per putent repudiandae an, imperdiet signiferumque cum et. Pri in quaeque gloriatur consectetuer.</p>
+
+								<p>Ad est audire imperdiet. Cum an docendi assentior. Usu inani perfecto quaestio in, id usu paulo eruditi salutandi. In eros prompta dolores nec, ut pro causae conclusionemque. In pro elit mundi dicunt. No odio diam interpretaris pri.</p>
+
+								<p>Quo unum mucius gloriatur te, erant putent bonorum ad eos. Nam ex cotidieque disputando. Has possit definiebas ne. Sed dico consul ut. Eu labore efficiantur pro. Sed legimus probatus pericula ea, cum oratio labitur concludaturque ne. Mei cu viris moderatius.</p>
+
+								<p>Id pri laboramus aliquando, putant explicari te sea. Liber iudicabit scribentur quo an, quo id porro labitur tractatos, sea dolorum forensibus disputando ut. Mel nibh sonet ne, laudem vidisse habemus ei sed, te stet diceret necessitatibus nam. Molestie vituperatoribus est an, an dicunt aeterno usu, cu mea admodum interesset. At etiam discere euismod has. At sed summo impedit reprehendunt, dolorem delicatissimi vim te.</p>
+							<!-- END .shortcode-content -->
+							</div>
+						</div>
+
+						<!-- BEGIN .main-nosplit -->
+						<div class="main-nosplit">
+							
+							<div class="article-share-bottom">
+								
+								<b>Tags</b>
+
+								<div class="tag-block">
+									<a href="#">Ex usu blandit</a><a href="#">Patrioque omntur</a><a href="#">Choro luptatum</a><a href="#">Feugiat epicuri deterruisset</a><a href="#">Qui reque euismod</a><a href="#">Modus sapientem</a><a href="#">Harum nemore</a><a href="#">Reprimique</a><a href="#">Dispdo</a><a href="#">No tollit reprimique</a><a href="#">Repriue dissentiet</a><a href="#">Cibods</a>
+								</div>
+
+								<div class="clear-float"></div>
+
+							</div>
+							
+							<div class="article-share-bottom">
+								
+								<b>Share</b>
+
+								<span class="social-icon">
+									<a href="#" class="social-button" style="background:#495fbd;"><span class="icon-text">&#62220;</span><font>Share</font></a>
+									<span class="social-count">293<span class="social-arrow">&nbsp;</span></span>
+								</span>
+
+								<span class="social-icon">
+									<a href="#" class="social-button" style="background:#43bedd;"><span class="icon-text">&#62217;</span><font>Tweet</font></a>
+									<span class="social-count">34<span class="social-arrow">&nbsp;</span></span>
+								</span>
+
+								<span class="social-icon">
+									<a href="#" class="social-button" style="background:#df6149;"><span class="icon-text">&#62223;</span><font>+1</font></a>
+									<span class="social-count">29<span class="social-arrow">&nbsp;</span></span>
+								</span>
+
+								<span class="social-icon">
+									<a href="#" class="social-button" style="background:#d23131;"><span class="icon-text">&#62226;</span><font>Share</font></a>
+									<span class="social-count">18<span class="social-arrow">&nbsp;</span></span>
+								</span>
+
+								<span class="social-icon">
+									<a href="#" class="social-button" style="background:#264c84;"><span class="icon-text">&#62232;</span><font>Share</font></a>
+									<span class="social-count">170<span class="social-arrow">&nbsp;</span></span>
+								</span>
+
+								<div class="clear-float"></div>
+
+							</div>
+
+						<!-- END .main-nosplit -->
+						</div>
+						
+						<div class="content-article-title">
+							<h2>About Author</h2>
+							<div class="right-title-side">
+								<a href="#top"><span class="icon-text">&#59231;</span>Scroll Back To Top</a>
+								<a href="blog.html"><span class="icon-text">&#128196;</span>More Articles From Author</a>
+							</div>
+						</div>
+
+						<!-- BEGIN .main-nosplit -->
+						<div class="main-nosplit">
+							
+							<div class="author-photo">
+								<img src="images/photos/_avatar-60x60.jpg" class="setborder" alt="" />
+							</div>
+
+							<div class="author-content">
+								<h3>Orange-Themes</h3>
+								<div class="right-top">
+									<a href="#" class="icon-text">&#62212;</a>
+									<a href="#" class="icon-text">&#62215;</a>
+									<a href="#" class="icon-text">&#62218;</a>
+									<a href="#" class="icon-text">&#62221;</a>
+									<a href="#" class="icon-text">&#62224;</a>
+									<a href="#" class="icon-text">&#62227;</a>
+								</div>
+								<p>Lorem ipsum dolor sit amet, eu altera suscipit suavitate vix. Cum reformidans consectetuer ei, his melius legimus constituam at. Duo cu sale dignissim, et noluisse luptatum has. In aeque nominati theophrastus has, vel id labore sententiae, et prima aliquip nec. Et qui nominati complectitur.</p>
+							</div>
+
+							<div class="split-line"></div>
+
+						<!-- END .main-nosplit -->
+						</div>
+						
+						<div class="content-article-title">
+							<h2>4 Comments</h2>
+							<div class="right-title-side">
+								<a href="#top"><span class="icon-text">&#59231;</span>Scroll Back To Top</a>
+								<a href="#writecomment"><span class="icon-text">&#9998;</span>Write Comment</a>
+							</div>
+						</div>
+
+						<div class="comment-block">
+							
+							<ol class="comments">
+								<li>
+									<div class="commment-content">
+										<div class="user-avatar">
+											<img src="images/no-avatar-60x60.jpg" class="setborder" alt="" title="" />
+										</div>
+										<strong class="user-nick"><a href="#">Ignasi Cleto</a></strong>
+										<span class="time-stamp">April 25, 12:53</span>
+										<div class="comment-text">
+											<p>Usu inani perfecto quaestio in, id usu paulo eruditi salutandi. In eros prompta dolores nec, ut pro causae conclusionemque. In pro elit mundi dicunt. No odio diam interpretaris pri.</p>
+										</div>
+										<a href="#" class="icon-link"><span class="icon-text">&#59154;</span><span>Reply to this comment</span></a>
+									</div>
+									<ul>
+										<li>
+											<div class="commment-content">
+												<div class="user-avatar">
+													<img src="images/photos/_avatar-40x40.jpg" class="setborder" alt="" title="" />
+												</div>
+												<strong class="user-nick"><a href="#">Orange-Themes</a><span class="marker">Author</span></strong>
+												<span class="time-stamp">April 25, 12:53</span>
+												<div class="comment-text">
+													<p>Ad est audire imperdiet. Cum an docendi assentior. Usu inani perfecto quaestio in, id usu paulo eruditi salutandi. In eros prompta dolores nec, ut pro causae conclusionemque. In pro elit mundi dicunt. No odio diam interpretaris pri.</p>
+												</div>
+												<a href="#" class="icon-link"><span class="icon-text">&#59154;</span><span>Reply to this comment</span></a>
+											</div>
+										</li>
+										<li>
+											<div class="commment-content">
+												<div class="user-avatar">
+													<img src="images/no-avatar-40x40.jpg" class="setborder" alt="" title="" />
+												</div>
+												<strong class="user-nick"><a href="#">Tatius Eugenio</a></strong>
+												<span class="time-stamp">April 25, 12:53</span>
+												<div class="comment-text">
+													<p>Has possit definiebas ne. Sed dico consul ut. Eu labore efficiantur pro. Sed legimus probatus pericula ea, cum oratio labitur concludaturque ne. Mei cu viris moderatius.</p>
+												</div>
+												<a href="#" class="icon-link"><span class="icon-text">&#59154;</span><span>Reply to this comment</span></a>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<div class="commment-content">
+										<div class="user-avatar">
+											<img src="images/no-avatar-60x60.jpg" class="setborder" alt="" title="" />
+										</div>
+										<strong class="user-nick">Ignasi Cleto</strong>
+										<span class="time-stamp">April 25, 12:53</span>
+										<div class="comment-text">
+											<p>Usu inani perfecto quaestio in, id usu paulo eruditi salutandi. In eros prompta dolores nec, ut pro causae conclusionemque. In pro elit mundi dicunt. No odio diam interpretaris pri.</p>
+										</div>
+										<a href="#" class="icon-link"><span class="icon-text">&#59154;</span><span>Reply to this comment</span></a>
+									</div>
+								</li>
+							</ol>
+
+						</div>
+						
+						<div class="content-article-title">
+							<h2>Write a Comment</h2>
+							<div class="right-title-side">
+								<a href="#top"><span class="icon-text">&#59231;</span>Scroll Back To Top</a>
+							</div>
+						</div>
+
+						<div class="comment-form">
+							<form action="#" method="post" id="writecomment">
+								<p class="comment-notes">Your email address will not be published.<br/>Required fields are marked <span class="required">*</span></p>
+								<p class="comment-form-author">
+									<label for="author">Nickname:<span class="required">*</span></label>
+									<input type="text" placeholder="My name" name="author" id="author" />
+								</p>
+								<p class="comment-form-email">
+									<label for="email">E-mail address:<span class="required">*</span></label>
+									<input class="error" placeholder="e.g. email@mail.me" type="text" name="email" id="email" />
+									<font class="comment-error"><span class="icon-text">&#9888;</span>ERROR: Field is Empty</font>
+								</p>
+								<p class="comment-form-url">
+									<label for="url">Your website:</label>
+									<input type="text" placeholder="www.website.com" name="url" id="url" />
+								</p>
+								<p class="comment-form-text">
+									<label for="comment">Comment:</label>
+									<textarea id="comment" placeholder="Your comment text.."></textarea>
+									<!-- <font class="comment-error textarea-error"><span class="icon-text">&#9888;</span>ERROR: Field is Empty</font> -->
+								</p>
+								<p class="form-submit">
+									<input name="submit" type="submit" id="submit" class="submit-button" value="Post a Comment" />
+								</p>
+							</form>
+
+							<div class="split-line"></div>
+						</div>
+						
+					<!-- END .main-content-left -->
+					</div>
+						
+					<!-- BEGIN .main-content-right -->
+					<div class="main-content-right">
+						
+						<!-- BEGIN .main-nosplit -->
+						<div class="main-nosplit">
+							
+							<!-- BEGIN .banner -->
+							<div class="banner">
+								<div class="banner-block">
+									<a href="#"><img src="images/banner-300x250.jpg" alt="" /></a>
+								</div>
+								<div class="banner-info">
+									<a href="contact-us.html" class="sponsored"><span class="icon-default">&nbsp;</span>Sponsored Advert<span class="icon-default">&nbsp;</span></a>
+								</div>
+							<!-- END .banner -->
+							</div>
+							
+						<!-- END .main-nosplit -->
+						</div>
+
+						
+						<!-- BEGIN .main-content-split -->
+						<div class="main-content-split">
+							
+							<!-- BEGIN .main-split-left -->
+							<div class="main-split-left">
+								
+								<!-- END .panel -->
+								<div class="panel">
+									<h3>Popular articles</h3>
+									<div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+											
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-36.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">Sumo aliquip facilisi temporibus pri</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>91 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-37.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">Deleniti voluptatibus congue erroribus nec</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>23 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-38.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">Denique conceptm ad minim scaevola no</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>101 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-39.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">An oblique nusquam pertinacia et mei</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>45 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-40.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">Ut sea omnes causae eleifend eirmod</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>239 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+										<!-- BEGIN .article-middle-block -->
+										<div class="article-middle-block">
+
+											<div class="article-photo">
+												<a href="post.html">
+													<img src="images/photos/image-41.jpg" class="setborder" alt="" />
+												</a>
+											</div>
+										
+											<div class="article-header">
+												<h2><a href="post.html">Ut sea omnes causae eleifend eirmod</a></h2>
+											</div>
+											
+											<div class="article-links">
+												<a href="post.html#comments" class="article-icon-link"><span class="icon-text">&#59160;</span>87 comments</a>
+											</div>
+
+										<!-- END .article-middle-block -->
+										</div>
+										
+									</div>
+								<!-- END .panel -->
+								</div>
+
+							<!-- END .main-split-left -->
+							</div>
+							
+							<!-- BEGIN .main-split-right -->
+							<div class="main-split-right">
+
+								<!-- BEGIN .panel -->
+								<div class="panel">
+									<h3>Popular categories</h3>
+									<div>
+										
+										<ul class="category-list">
+											<li><span class="category-bull" style="background:#a21d1d;">&nbsp;</span><a href="category.html">Sport News</a><span class="article-count">(101)</span></li>
+											<li><span class="category-bull" style="background:#338aa6;">&nbsp;</span><a href="category.html">Business</a><span class="article-count">(93)</span></li>
+											<li><span class="category-bull" style="background:#9f3819;">&nbsp;</span><a href="category.html">Technology</a><span class="article-count">(66)</span></li>
+											<li><span class="category-bull" style="background:#6d8b13;">&nbsp;</span><a href="category.html">Entertainment</a><span class="article-count">(40)</span></li>
+											<li><span class="category-bull" style="background:#cb50b5;">&nbsp;</span><a href="category.html">Gossips</a><span class="article-count">(37)</span></li>
+											<li><span class="category-bull" style="background:#13168b;">&nbsp;</span><a href="category.html">Online Shopping</a><span class="article-count">(22)</span></li>
+											<li><span class="category-bull" style="background:#8b6d13;">&nbsp;</span><a href="category.html">Automotive</a><span class="article-count">(16)</span></li>
+										</ul>
+
+									</div>
+								<!-- END .panel -->
+								</div>
+
+								<!-- BEGIN .panel -->
+								<div class="panel">
+									<h3>Recent Comments</h3>
+									<div>
+										
+										<div class="panel-comment">
+											<div class="comment-header">
+												<b><a href="#">Vitali Seppel</a></b>
+											</div>
+											<div class="comment-content">
+												<p>Erant sapientem at usu, lorem aliquid scribentur id vel. Sed habeo gloriatur abhorreant ex, fabella accommodare ei.</p>
+											</div>
+											<div class="comment-links">
+												<a href="post.html#comments" class="comment-icon-link"><span class="icon-text">&#59160;</span>View in article</a>
+											</div>
+										</div>
+										
+										<div class="panel-comment">
+											<div class="comment-header">
+												<b>Rameshwar Svante</b>
+											</div>
+											<div class="comment-content">
+												<p>Ei vis cibo assueverit, erat salutatus ius ne.</p>
+											</div>
+											<div class="comment-links">
+												<a href="post.html#comments" class="comment-icon-link"><span class="icon-text">&#59160;</span>View in article</a>
+											</div>
+										</div>
+										
+										<div class="panel-comment">
+											<div class="comment-header">
+												<b><a href="#">Sohail Rhydderch</a></b>
+											</div>
+											<div class="comment-content">
+												<p>Timeam laboramus omittantur et mei, everti commodo id pri vulputate, insolens pericula.</p>
+											</div>
+											<div class="comment-links">
+												<a href="post.html#comments" class="comment-icon-link"><span class="icon-text">&#59160;</span>View in article</a>
+											</div>
+										</div>
+										
+										<div class="panel-comment">
+											<div class="comment-header">
+												<b><a href="#">Eduard Peter</a></b>
+											</div>
+											<div class="comment-content">
+												<p>Possim quaerendum usu id, an pro lorem affert, te audiam tri tani imperdiet eam.</p>
+											</div>
+											<div class="comment-links">
+												<a href="post.html#comments" class="comment-icon-link"><span class="icon-text">&#59160;</span>View in article</a>
+											</div>
+										</div>
+
+									</div>
+								<!-- END .panel -->
+								</div>
+
+								<!-- BEGIN .panel -->
+								<div class="panel">
+									<h3>Latest Galleries</h3>
+									<div>
+										
+										<div class="panel-gallery">
+											<div class="gallery-images">
+
+												<a href="#" class="gallery-navi-left icon-text">&#59229;</a>
+												<a href="#" class="gallery-navi-right icon-text">&#59230;</a>
+												<ul>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-42.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-43.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-44.jpg" class="setborder" alt="" title="" /></a></li>
+												</ul>
+												
+											</div>
+											<div class="gallery-header">
+												<b><a href="photo-gallery-single.html">Wisi mucius prota sed deleniti voluptatibus</a></b>
+											</div>
+										</div>
+										
+										<div class="panel-gallery">
+											<div class="gallery-images">
+
+												<a href="#" class="gallery-navi-left icon-text">&#59229;</a>
+												<a href="#" class="gallery-navi-right icon-text">&#59230;</a>
+												<ul>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-43.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-44.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-42.jpg" class="setborder" alt="" title="" /></a></li>
+												</ul>
+												
+											</div>
+											<div class="gallery-header">
+												<b><a href="photo-gallery-single.html">Wisi mucius prota sed deleniti voluptatibus</a></b>
+											</div>
+										</div>
+										
+										<div class="panel-gallery">
+											<div class="gallery-images">
+
+												<a href="#" class="gallery-navi-left icon-text">&#59229;</a>
+												<a href="#" class="gallery-navi-right icon-text">&#59230;</a>
+												<ul>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-44.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-42.jpg" class="setborder" alt="" title="" /></a></li>
+													<li class="active"><a href="photo-gallery-single.html"><img src="images/photos/image-43.jpg" class="setborder" alt="" title="" /></a></li>
+												</ul>
+												
+											</div>
+											<div class="gallery-header">
+												<b><a href="photo-gallery-single.html">Wisi mucius prota sed deleniti voluptatibus</a></b>
+											</div>
+										</div>
+										
+									</div>
+								<!-- END .panel -->
+								</div>
+
+							<!-- END .main-split-right -->
+							</div>
+
+						<!-- END .main-content-split -->
+						</div>
+						
+						
+					<!-- END .main-content-right -->
+					</div>
+					
+					<div class="clear-float"></div>
+					
+				<!-- END .wrapper -->
+				</div>
+				
+			<!-- BEGIN .content -->
+			</div>
+			
+			<!-- BEGIN .footer -->
+			<div class="footer">
+				
+				<!-- BEGIN .wrapper -->
+				<div class="wrapper">
+					
+
+					<!-- BEGIN .breaking-news -->
+					<div class="breaking-news">
+						
+						<div class="breaking-title"><span class="breaking-icon">&nbsp;</span><b>Breaking News</b><div class="the-corner"></div></div>
+
+						<div class="breaking-block">
+							<ul>
+								<li><a href="post.html">Lorem ipsum dolor sit amet et dolor adolescens sit</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+								<li><a href="post.html">Alia corpora ea vim, te erant viris bonorum sit, ei doming prompta vis</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+								<li><a href="post.html">Nam in mundi tractatos, audire atomorum qualisque ea eos</a><span>Ea cum tation populo dolores, ex modo falli oblique sit oblique sit. Sed cu omnium debitis qualisque...</span></li>
+							</ul>
+						</div>
+						
+						<div class="breaking-controls"><a href="#" class="breaking-arrow-left">&nbsp;</a><a href="#" class="breaking-arrow-right">&nbsp;</a><div class="clear-float"></div><div class="the-corner"></div></div>
+						
+					<!-- END .breaking-news -->
+					</div>
+
+
+					<!-- BEGIN .footer-content -->
+					<div class="footer-content">
+						
+						<div class="footer-menu">
+							<ul>
+								<li><a href="category.html">Ouotaperiam</a></li>
+								<li><a href="category.html">Copiosaeusu</a></li>
+								<li><a href="category.html">Tantas</a></li>
+								<li><a href="category.html">Homero</a></li>
+								<li><a href="category.html">Sanctus</a></li>
+								<li><a href="category.html">Eameudicam</a></li>
+								<li><a href="category.html">Decore</a></li>
+								<li><a href="category.html">Blandit</a></li>
+								<li><a href="category.html">Mentitum</a></li>
+								<li><a href="category.html">Definiebas</a></li>
+							</ul>
+						</div>
+						
+						<div class="left">&copy; 2013 Copyright <b>Legato theme</b>. All Rights reserved.</div>
+						
+						<div class="right">Designed by <a href="http://orange-themes.com/" target="_blank"><img src="images/orange-themes.png" alt="" /></a></div>
+						
+						<div class="clear-float"></div>
+						
+					<!-- END .footer-content -->
+					</div>
+
+					
+				<!-- END .wrapper -->
+				</div>
+				
+			<!-- END .footer -->
+			</div>
+			
+		<!-- END .boxed -->
+		</div>
+		<script type="text/javascript" src="jscript/orange-themes-responsive.js"></script>
+		<script type="text/javascript" src="jscript/scripts.js"></script>
+		<!-- For Demo Only -->
+		<script type="text/javascript" src="jscript/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="jscript/demo-settings.js"></script>
+	<!-- END body -->
+	</body>
+<!-- END html -->
+
+<!-- Mirrored from legatus.orange-themes.com/html/post-breaking.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Feb 2016 22:29:50 GMT -->
+</html>

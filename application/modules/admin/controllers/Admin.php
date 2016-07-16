@@ -1,0 +1,941 @@
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Admin extends MY_Controller {
+
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('admin_model');
+        if (!$this->is_logedin()) {
+            redirect('/login/', 'refresh');
+        }
+        $session_data = $this->session->userdata();
+        $this->data = new stdClass();
+        $this->data->title = 'Admin | Dashboard';
+        $this->data->meta = 'dashbord';
+        $this->data->username = $session_data['user_nicename'];
+        $this->data->email = $session_data['email'];
+        $this->data->type = $session_data['type'];
+    }
+
+    public function index() {
+        $this->data->active = 'functions';
+
+        $this->data->meta = 'dashboard';
+        $this->data->active = 'dashboard';
+        //   $get_enable_function_list_menu = $this->admin_model->get_enable_function_list_menu($session_data['id']);
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/dashboard', $this->data);
+    }
+
+    /**
+     * To show authenticated user's profile details.
+     * URL /admin/profile
+     */
+    public function profile() {
+        $this->data->meta = '';
+        $this->data->active = '';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/profile', $this->data);
+    }
+
+    /**
+     * To show all categories form categories table.
+     * URL /admin/all_categories
+     */
+    public function all_categories() {
+        $this->data->all_data = $this->admin_model->getAll('categories');
+        $this->data->meta = 'category';
+        $this->data->active = 'all_categories';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_categories', $this->data);
+        $this->session->unset_userdata('status');
+    }
+
+    /**
+     * To add new category to categories table.
+     * URL /admin/new_category
+     */
+    public function new_category() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_message('username_check');
+        $this->data->all_data = $this->admin_model->getAll('categories');
+        $this->load->helper('form');
+        $this->data->meta = 'category';
+        $this->data->active = 'newCategory';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/new_category', $this->data);
+    }
+
+    /**
+     * To save new category to categories table.
+     * @return type Boolean.
+     */
+    public function save_categories() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Name", "trim|required|min_length[4]|max_length[30]|is_unique[categories.name]");
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error_message', validation_errors());
+            redirect('/admin/new_category');
+        } else {
+            $slug = $this->input->post('name');
+            $slug_sliced = str_replace(" ", "-", $slug);
+            $data_array = array(
+                'name' => $this->input->post('name'),
+                'slug' => $slug_sliced,
+                'parent_id' => $this->input->post('parent'),
+                'description' => $this->input->post('description')
+            );
+            $new_row = $this->admin_model->insert('categories', $data_array);
+            $this->session->set_flashdata('success_message', 'success');
+            redirect(base_url() . '/admin/edit_category/' . $new_row);
+        }
+    }
+
+    /**
+     * To edit selected category.
+     * URL /admin/edit_category/--
+     */
+    public function edit_category() {
+        $cat_id = $this->uri->segment(3);
+        $this->data->all_data = $this->admin_model->getAll('categories');
+        $this->data->current_data = $this->admin_model->getById('categories', 'id', $cat_id);
+        $this->load->helper('form');
+        $this->data->meta = 'category';
+        $this->data->active = '';
+        if (!empty($this->data->current_data)) {
+            $this->template->load('admin/template/template_dashboard_admin', 'admin/edit_category', $this->data);
+        } else {
+            $this->data->content = "category";
+            $this->data->tag_id = $cat_id;
+            $this->template->load('admin/template/template_dashboard_admin', 'admin/not_found', $this->data);
+        }
+    }
+
+    /**
+     * Update Edited Category details.
+     * @return type Boolean.
+     */
+    function update_categories() {
+        $id = $this->input->post('id');
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Name", "trim|required|min_length[4]|max_length[30]|is_unique[categories.name]");
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array(
+                'parent_id' => $this->input->post('parent'),
+                'description' => $this->input->post('description')
+            );
+            $this->admin_model->update($id, $data);
+            $this->session->set_flashdata('parent_desc', 'success');
+            $this->session->set_flashdata('error_message', validation_errors());
+            redirect('/admin/edit_category/' . $id);
+        } else {
+            $slug = $this->input->post('name');
+            $slug_sliced = str_replace(" ", "-", $slug);
+            $data = array(
+                'name' => $this->input->post('name'),
+                'slug' => $slug_sliced,
+                'parent_id' => $this->input->post('parent'),
+                'description' => $this->input->post('description')
+            );
+            $this->admin_model->update($id, $data);
+            $this->session->set_flashdata('success_message', 'success');
+            redirect('/admin/edit_category/' . $id);
+        }
+    }
+
+    /**
+     * To delete selected category from categories table.
+     * @return type Boolean.
+     */
+    public function delete_category() {
+        $id = $this->uri->segment(3);
+        $this->data->all_data = $this->admin_model->getAll('categories');
+        $this->admin_model->delete('categories', 'id', $id);
+        $success = array(
+            'status' => 'deleted'
+        );
+        $this->session->set_userdata($success);
+        redirect('/admin/all_categories');
+    }
+
+    /**
+     * To show all tags from tags table.
+     * URL /admin/all_tags
+     */
+    public function all_tags() {
+        $this->data->all_data = $this->admin_model->getAll('tags');
+        $this->data->meta = 'tag';
+        $this->data->active = 'all_tags';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_tags', $this->data);
+        $this->session->unset_userdata('status');
+    }
+
+    /**
+     * To add new tag to tags table.
+     * URL /admin/new_tag
+     */
+    public function new_tag() {
+        $this->load->helper('form');
+        $this->data->meta = 'tag';
+        $this->data->active = 'new_tag';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/new_tag', $this->data);
+        $this->session->unset_userdata('status');
+    }
+
+    /**
+     * To save new tag to tags table.
+     * @return type Boolean.
+     */
+    public function save_tag() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Name", "required|min_length[4]|max_length[30]|is_unique[tags.tag_name]");
+
+        if ($this->form_validation->run() == FALSE) {
+            $status = array(
+                'status' => 'error_required'
+            );
+            $this->session->set_userdata($status);
+            redirect('/admin/new_tag');
+        } else {
+            $data_array = array(
+                'tag_name' => $this->input->post('name'),
+                'status' => 1,
+            );
+            $success = array(
+                'status' => 'success'
+            );
+            $this->admin_model->insert('tags', $data_array);
+            $this->session->set_userdata($success);
+            redirect('/admin/all_tags');
+        }
+    }
+
+    /**
+     * Add new tag from new news post page.
+     * This tag will save to tags table.
+     */
+    public function save_tag_from_newspost() {
+        if (isset($_REQUEST['tag'])) {
+            $data_array = array(
+                'tag_name' => $_REQUEST['tag'],
+                'status' => 1,
+            );
+            $this->admin_model->insert('tags', $data_array);
+            echo "True";
+        } else {
+            echo "False";
+        }
+    }
+
+    /**
+     * To edit selected tag.
+     * URL /admin/edit_tag/--
+     */
+    public function edit_tag() {
+        $this->load->helper('form');
+        $id = $this->uri->segment(3);
+        $this->data->all_data = $this->admin_model->getById('tags', 'id', $id);
+        $this->data->meta = 'tag';
+        $this->data->active = '';
+        if (!empty($this->data->all_data)) {
+            $this->template->load('admin/template/template_dashboard_admin', 'admin/edit_tag', $this->data);
+        } else {
+            $this->data->content = "tag";
+            $this->data->tag_id = $id;
+            $this->template->load('admin/template/template_dashboard_admin', 'admin/not_found', $this->data);
+        }
+    }
+
+    /**
+     * To update selected tag.
+     * @return type Boolean.
+     */
+    function update_tag() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Name", "required|min_length[4]|max_length[30]|is_unique[tags.tag_name]");
+
+        if ($this->form_validation->run() == FALSE) {
+            $id = $this->input->post('id');
+            $this->session->set_flashdata('status', 'update_error');
+            redirect(base_url() . 'admin/edit_tag/' . $id);
+        } else {
+            $id = $this->input->post('id');
+            $data = array(
+                'tag_name' => $this->input->post('name')
+            );
+            $success = array(
+                'status' => 'success_updated'
+            );
+            $this->admin_model->updateById('tags', $id, $data);
+            $this->session->set_flashdata('status', 'update_success');
+            redirect(base_url() . 'admin/edit_tag/' . $id);
+        }
+    }
+
+    /**
+     * To delete selected tag.
+     * @return type Boolean.
+     */
+    public function delete_tag() {
+        $id = $this->uri->segment(3);
+        $this->data->all_data = $this->admin_model->getAll('tags');
+        $this->admin_model->delete('tags', 'id', $id);
+        $success = array(
+            'status' => 'deleted'
+        );
+        $this->session->set_userdata($success);
+        redirect('/admin/all_tags');
+    }
+
+    /**
+     * To show a page for menu manage.
+     * URL /admin/menus
+     */
+    public function menus() {
+        $this->data->meta = 'appearance';
+        $this->data->active = 'menus';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/menus', $this->data);
+    }
+
+    /**
+     * To show new newpost page.
+     * URL /admin/new_newspost
+     */
+    public function new_newspost() {
+        $this->load->helper('form');
+        $this->data->meta = 'newsPost';
+        $this->data->active = 'newsPost';
+        $this->data->all_tags = $this->admin_model->getAll('tags');
+        $this->data->all_media = $this->admin_model->getAllOrdered('media', 'media_id', 'desc');
+        $this->data->all_categories = $this->admin_model->getAll('categories');
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/new_newspost', $this->data);
+    }
+
+    /**
+     * 
+     * @param string $slug is main string to generate slug.
+     * @return boolean
+     */
+    private function check_slug($slug) {
+        $slug_check = $this->admin_model->check_slug($slug);
+        if ($slug_check) {
+            return false;
+        } else {
+            return $slug;
+        }
+    }
+
+    /**
+     * To save new new to newspost table.
+     * @return type Boolean.
+     */
+    public function save_news() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("newspost_title", "News Title", "required|min_length[8]|max_length[50]");
+        $now = date('Y-m-d h:i:s');
+        $title_text = $this->input->post('newspost_title');
+        $slug = preg_replace('/\s+/', '-', $title_text);
+
+        $count = 0;
+        do {
+            $slug = $this->check_slug($slug);
+            if (!$slug) {
+                $slug = $this->check_slug(preg_replace('/\s+/', '-', $title_text) . '-' . ++$count);
+            }
+        } while (!$slug);
+
+        if ($this->form_validation->run() == FALSE) {
+            $status = array(
+                'status' => 'error_required'
+            );
+            $this->session->set_userdata($status);
+            redirect('/admin/new_newspost');
+        } else {
+            $success = array(
+                'status' => 'success'
+            );
+            $category = $this->input->post('category');
+            if (!empty($category)) {
+                $category = implode(', ', $this->input->post('category'));
+            } else {
+                $category = $this->input->post('category');
+            }
+            $data_newspost = array(
+                'newspost_title' => $this->input->post('newspost_title'),
+                'newspost_long_title' => $this->input->post('newspost_long_title'),
+                'newspost_content' => $this->input->post('news_content'),
+                'cat_id' => $category,
+                'tag_id' => $this->input->post('news_tags'),
+                'comment_allow' => 1,
+                'newspost_date' => strtotime($now),
+                'newspost_slug' => urlencode(utf8_encode($slug)),
+                'author_id' => $_SESSION['id'],
+                'status' => "Pending"
+            );
+            $data_newspost_meta = array(
+                array(
+                    'meta_key' => 'post_featured_gallery',
+                    'meta_value' => $this->input->post('featured_gallery')
+                ),
+                array(
+                    'meta_key' => 'post_featured_image',
+                    'meta_value' => $this->input->post('featured_image')
+                ),
+                array(
+                    'meta_key' => 'post_video_url',
+                    'meta_value' => $this->input->post('featured_video')
+                ),
+                array(
+                    'meta_key' => 'post_breaking_status',
+                    'meta_value' => $this->input->post('breaking_news')
+                )
+            );
+
+            $this->session->set_userdata($success);
+            $query = $this->admin_model->insert_newspost($data_newspost, $data_newspost_meta);
+            redirect("admin/edit_newspost/$query");
+        }
+    }
+
+    /**
+     * To Update newspost Data.
+     */
+    public function update_news() {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("newspost_title", "News Title", "required|min_length[8]|max_length[50]");
+
+        /* Getting updated time */
+        $now = date('Y-m-d h:i:s');
+
+        /* Make category ids to comma seperated string. */
+        $category = $this->input->post('category');
+        $newspost_id = $this->uri->segment(3);
+
+        if (!empty($category)) {
+            $category = implode(', ', $this->input->post('category'));
+        } else {
+            $category = $this->input->post('category');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+
+            /* Make update status */
+            $this->session->set_flashdata('update_error', 'title_required');
+
+            /* Redirect to post edit page */
+            redirect(base_url() . 'admin/edit_newspost/' . $newspost_id);
+            redirect('/admin/new_newspost');
+        } else {
+
+
+            /* Get Old Content */
+            $old_content = $this->admin_model->getById('newspost', 'newspost_id', $newspost_id);
+
+            /* Slice old content */
+            $old_newspost_title = $old_content[0]->newspost_title;
+            $old_newspost_long_title = $old_content[0]->newspost_long_title;
+            $old_newspost_content = $old_content[0]->newspost_content;
+
+            /* Slice new content */
+            $new_newspost_title = htmlspecialchars($this->input->post('newspost_title'), ENT_QUOTES);
+            $new_newspost_long_title = htmlspecialchars($this->input->post('newspost_long_title'), ENT_QUOTES);
+            $new_newspost_content = $this->input->post('news_content');
+
+            /* Check, is title, long title and content changed */
+            if ($old_newspost_title !== $new_newspost_title || $old_newspost_long_title !== $new_newspost_long_title || $old_newspost_content !== $new_newspost_content) {
+                $old_content_to_meta = array(
+                    array(
+                        'newspost_id' => $newspost_id,
+                        'meta_key' => $old_content[0]->count_update . '_update_newspost_title',
+                        'meta_value' => $old_newspost_title,
+                    ),
+                    array(
+                        'newspost_id' => $newspost_id,
+                        'meta_key' => $old_content[0]->count_update . '_update_newspost_long_title',
+                        'meta_value' => $old_newspost_long_title,
+                    ),
+                    array(
+                        'newspost_id' => $newspost_id,
+                        'meta_key' => $old_content[0]->count_update . '_update_newspost_content',
+                        'meta_value' => $old_newspost_content,
+                    )
+                );
+                for ($i = 0; $i < sizeof($old_content_to_meta); $i++) {
+                    $this->admin_model->insert('postmeta', $old_content_to_meta[$i]);
+                }
+            }
+
+            /* Make new content array */
+            $new_content = array(
+                'newspost_title' => $new_newspost_title,
+                'newspost_long_title' => $new_newspost_long_title,
+                'newspost_content' => $this->input->post('news_content'),
+                'updated_date' => strtotime($now),
+                'count_update' => $old_content[0]->count_update + 1,
+                'cat_id' => $category,
+                'tag_id' => $this->input->post('news_tags'),
+                'status' => $this->input->post('article_status'),
+            );
+
+            /* Make new content meta as an array */
+            $newspost_meta = array(
+                array(
+                    'meta_key' => 'post_featured_gallery',
+                    'meta_value' => $this->input->post('featured_gallery')
+                ),
+                array(
+                    'meta_key' => 'post_featured_image',
+                    'meta_value' => $this->input->post('featured_image')
+                ),
+                array(
+                    'meta_key' => 'post_video_url',
+                    'meta_value' => $this->input->post('featured_video')
+                ),
+                array(
+                    'meta_key' => 'post_breaking_status',
+                    'meta_value' => $this->input->post('breaking_news')
+                )
+            );
+
+            /* Update newspost contents and metas */
+            $query = $this->admin_model->update_newspost($newspost_id, $new_content, $newspost_meta);
+
+            /* Make update status */
+            $this->session->set_flashdata('update_success', 'update_successfull');
+
+            /* Redirect to post edit page */
+            redirect(base_url() . 'admin/edit_newspost/' . $newspost_id);
+        }
+    }
+
+    /**
+     * To show all articles from newpost table.
+     */
+    public function all_newsposts() {
+        $this->data->meta = 'newsPost';
+        $this->data->active = 'all_newsposts';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_newsposts', $this->data);
+    }
+
+    public function all_trash_newsposts() {
+        $this->data->meta = 'newsPost';
+        $this->data->active = 'newsPostInTrash';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_newsposts_trash', $this->data);
+    }
+
+    /**
+     * This function is for making news post as breaking from all newspost page.
+     */
+    public function breakingStatus() {
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+        /* Update newspost contents and metas */
+        $breaking_status_array = array(
+            'newspost_id' => $id,
+            'meta_key' => 'post_breaking_status',
+            'meta_value' => $status,
+        );
+        $this->admin_model->updateBreakingStatus($breaking_status_array);
+        die();
+    }
+
+    public function get_newpost_list() {
+        $data1['offset'] = $this->input->post('offset');
+        $data1['limit'] = $this->input->post('limit');
+        $data1['all_data'] = $this->admin_model->getAllNewspost($data1['limit'], $data1['offset']);
+        $data1['total'] = $this->admin_model->total_post();
+        $data1['pages'] = $data1['total'] / $data1['limit'];
+        $data2 = [];
+
+        foreach ($data1['all_data'] as $key => $value) {
+            $categories = $this->admin_model->categories_As_Articl($value->cat_id);
+            $cats = '';
+            foreach ($categories as $cat_key => $cat) {
+                if ($cat_key == 0) {
+                    $cats .= $cat->name;
+                } else {
+                    $cats .= ', ' . $cat->name;
+                }
+            }
+
+            $users = $this->admin_model->getUserIdName();
+            $user_name = '';
+            foreach ($users as $user) {
+                if ($value->author_id == $user->id) {
+                    $article_author = $user->user_nicename;
+                }
+            }
+
+            $breaking = $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $value->newspost_id, 'meta_key', 'post_breaking_status');
+            if (!empty($breaking)) {
+                $breaking_status = $breaking[0]->meta_value;
+            } else {
+                $breaking_status = "";
+            }
+
+            $date_time = explode(" ", date('d-M-Y h:i:s A', $data1['all_data'][$key]->newspost_date));
+            $data = array(
+                'id' => $value->newspost_id,
+                'title' => $value->newspost_title,
+                'date' => $date_time[0],
+                'time' => $date_time[1] . ' ' . $date_time[2],
+                'category' => $cats,
+                'breaking' => $breaking_status,
+                'status' => $value->status,
+                'article_author' => $article_author,
+            );
+            array_push($data2, $data);
+        }
+
+        echo(json_encode(array($data2, $data1)));
+        die();
+    }
+
+    public function get_deleted_newpost_list() {
+        $data1['offset'] = $this->input->post('offset');
+        $data1['limit'] = $this->input->post('limit');
+        $data1['all_data'] = $this->admin_model->getDeletedNewspost($data1['limit'], $data1['offset']);
+        $data1['total'] = $this->admin_model->total_deleted_post();
+        $data1['pages'] = $data1['total'] / $data1['limit'];
+        $data2 = [];
+
+        foreach ($data1['all_data'] as $key => $value) {
+            $categories = $this->admin_model->categories_As_Articl($value->cat_id);
+            $cats = '';
+            foreach ($categories as $cat_key => $cat) {
+                if ($cat_key == 0) {
+                    $cats .= $cat->name;
+                } else {
+                    $cats .= ', ' . $cat->name;
+                }
+            }
+
+            $users = $this->admin_model->getUserIdName();
+            $user_name = '';
+            foreach ($users as $user) {
+                if ($value->author_id == $user->id) {
+                    $article_author = $user->user_nicename;
+                }
+            }
+
+            $breaking = $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $value->newspost_id, 'meta_key', 'post_breaking_status');
+            if (!empty($breaking)) {
+                $breaking_status = $breaking[0]->meta_value;
+            } else {
+                $breaking_status = "";
+            }
+
+            $date_time = explode(" ", date('d-M-Y h:i:s A', $data1['all_data'][$key]->newspost_date));
+            $data = array(
+                'id' => $value->newspost_id,
+                'title' => $value->newspost_title,
+                'date' => $date_time[0],
+                'time' => $date_time[1] . ' ' . $date_time[2],
+                'category' => $cats,
+                'breaking' => $breaking_status,
+                'status' => $value->status,
+                'article_author' => $article_author,
+            );
+            array_push($data2, $data);
+        }
+
+        echo(json_encode(array($data2, $data1)));
+        die();
+    }
+
+    /**
+     * To edit selected article.
+     * URL /admin/edit_article
+     */
+    public function edit_newspost() {
+        $this->load->helper('form');
+        $this->data->meta = 'newsPost';
+        $this->data->active = '';
+        $post_id = $this->uri->segment(3);
+        $this->data->all_categories = $this->admin_model->getAll('categories');
+        $this->data->all_news_data = $this->admin_model->getById('newspost', 'newspost_id', $post_id);
+
+        $all_news_meta = [];
+        $all_news_meta = array(
+            "post_video_url" => $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $post_id, 'meta_key', 'post_video_url'),
+            "post_featured_image" => $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $post_id, 'meta_key', 'post_featured_image'),
+            "post_featured_gallery" => $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $post_id, 'meta_key', 'post_featured_gallery'),
+            "post_breaking_status" => $this->admin_model->getNewsPostMeta('postmeta', 'newspost_id', $post_id, 'meta_key', 'post_breaking_status'),
+        );
+
+        $gal_images_urls = [];
+        $gal_images_ids = explode(" ", $all_news_meta['post_featured_gallery'][0]->meta_value);
+        foreach ($gal_images_ids as $gal_images_id) {
+            if (!empty($gal_images_id)) {
+                $media_info = $this->admin_model->getById('media', 'media_id', $gal_images_id);
+                array_push($gal_images_urls, $media_info);
+            }
+        }
+
+        $featured_image_id = $all_news_meta['post_featured_image'][0]->meta_value;
+        $featured_img_info = $this->admin_model->getById('media', 'media_id', $featured_image_id);
+
+        /**
+         * Code for selected tags name.
+         */
+        $all_tags = [];
+        $tags_array = explode(",", $this->data->all_news_data[0]->tag_id);
+        foreach ($tags_array as $tag) {
+            $single_tag = $this->admin_model->getById('tags', 'id', $tag);
+            if (!empty($single_tag)) {
+                $single_tag_array = array(
+                    "id" => $single_tag[0]->id,
+                    "name" => $single_tag[0]->tag_name
+                );
+                array_push($all_tags, $single_tag_array);
+            }
+        }
+        $this->data->tags = $all_tags;
+        $this->data->metas = $all_news_meta;
+        $this->data->img_urls = $gal_images_urls;
+        $this->data->featured_image = $featured_img_info;
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/edit_newspost', $this->data);
+    }
+
+    /**
+     * To show all media from media table.
+     * URL /admin/all_media
+     */
+    public function all_media() {
+        $this->data->meta = 'media';
+        $this->data->active = 'all_media';
+        $this->data->all_media = $this->admin_model->getAllOrdered('media','media_id','DESC');
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_media', $this->data);
+    }
+
+    public function all_media_list() {
+        $media_id = $this->uri->segment(3);
+        $media = $this->admin_model->getById('media', 'media_id', $media_id);
+        echo json_encode($media);
+        die();
+    }
+
+    public function update_media_details() {
+        $media = array(
+            'media_caption' => $this->input->post('media_caption'),
+            'media_description' => $this->input->post('media_description'),
+        );
+        $media_id = $this->input->post('media_id');
+        $media_id = array('media_id' => $media_id);
+        $task = $this->admin_model->updateByIdGolbal('media', $media, $media_id);
+        
+        if($task == 'success'){
+            echo "True";
+        }
+        else{
+            echo "False";
+        }
+    }
+
+    /**
+     * To upload new media to selected folder and media table
+     */
+    public function new_media() {
+        $this->data->meta = 'media';
+        $this->data->active = 'new_media';
+        $this->data->all_media = $this->admin_model->getAllOrdered('media','media_id','DESC');
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/new_media', $this->data);
+    }
+
+    /**
+     * To show site options page.
+     */
+    public function site_options() {
+        $this->data->meta = 'options';
+        $this->data->active = 'options';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/site_options', $this->data);
+    }
+
+    /**
+     * To get all tags
+     */
+    public function tags() {
+        $this->data->meta = '';
+        $this->data->active = '';
+        $tags = $this->admin_model->getAll('tags');
+        echo json_encode($tags);
+        die();
+        // $this->template->load('admin/template/tags_template', 'admin/tags', $this->data);
+    }
+
+    /**
+     * To upload media to selected folder and save path to media table.
+     */
+    public function save_media() {
+        $file = $_FILES['file']['tmp_name'];
+        $file_name = $_FILES['file']['name'];
+        $path_parts = pathinfo($_FILES["file"]["name"]);
+        $ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        $imagedetails = getimagesize($_FILES['file']['tmp_name']);
+        if (in_array($imagedetails['mime'], ['image/png', 'image/jpeg']) != 1) {
+            echo 'error';
+        } else {
+            $img_width = $imagedetails[0];
+            $img_height = $imagedetails[1];
+            $year = date('Y');
+            $month = date('m');
+            $date = date('d');
+            $path_year = "uploads/" . $year;
+            $path_month = "uploads/" . $year . '/' . $month;
+            $path_date = "uploads/" . $year . '/' . $month . '/' . $date;
+            $path_680_250 = "uploads/" . $year . '/' . $month . '/' . $date . '/680_250';
+            $path_600_440 = "uploads/" . $year . '/' . $month . '/' . $date . '/600_440';
+            $path_330_200 = "uploads/" . $year . '/' . $month . '/' . $date . '/330_200';
+            $path_150_150 = "uploads/" . $year . '/' . $month . '/' . $date . '/150_150';
+            if (!is_dir($path_year)) {
+                mkdir($path_year, 0755, TRUE);
+            }
+            if (!is_dir($path_month)) {
+                mkdir($path_month, 0755, TRUE);
+            }
+            if (!is_dir($path_date)) {
+                mkdir($path_date, 0755, TRUE);
+                mkdir($path_680_250, 0755, TRUE);
+                mkdir($path_600_440, 0755, TRUE);
+                mkdir($path_330_200, 0755, TRUE);
+                mkdir($path_150_150, 0755, TRUE);
+            }
+            $img_pre = rand(10, 1000);
+            $img_pre = rand(10, 1000);
+            $date_time = (array) new DateTime();
+            $new_file_name = md5($date_time['date']) . '.' . $ext;
+            $this->resize_upload($file, $img_width, $img_height, $new_file_name);
+            //move_uploaded_file($_FILES['file']['tmp_name'], FCPATH . 'uploads/' . $year . '/' . $month . '/' . $date . '/' . $new_file_name);
+            $data = array(
+                'media_name' => $new_file_name,
+                'media_path' => $year . '/' . $month . '/' . $date . '/'
+            );
+            $this->admin_model->save_media($data);
+        }
+    }
+
+    /**
+     * To upload media to selected folder and save path to media table.
+     */
+    public function resize_upload($path, $img_width, $img_height, $file_name) {
+        $year = date('Y');
+        $month = date('m');
+        $date = date('d');
+        $path_year = "uploads/" . $year;
+        $path_month = "uploads/" . $year . '/' . $month;
+        $path_date = "uploads/" . $year . '/' . $month . '/' . $date;
+        $path_680_250 = "uploads/" . $year . '/' . $month . '/' . $date . '/680_250';
+        $path_600_440 = "uploads/" . $year . '/' . $month . '/' . $date . '/600_440';
+        $path_330_200 = "uploads/" . $year . '/' . $month . '/' . $date . '/330_200';
+        $path_150_150 = "uploads/" . $year . '/' . $month . '/' . $date . '/150_150';
+        if (!is_dir($path_year)) {
+            mkdir($path_year, 0755, TRUE);
+        }
+        if (!is_dir($path_month)) {
+            mkdir($path_month, 0755, TRUE);
+        }
+        if (!is_dir($path_date)) {
+            mkdir($path_date, 0755, TRUE);
+            mkdir($path_680_250, 0755, TRUE);
+            mkdir($path_600_440, 0755, TRUE);
+            mkdir($path_330_200, 0755, TRUE);
+            mkdir($path_150_150, 0755, TRUE);
+        }
+
+        $image_config_68_25["image_library"] = "gd2";
+        $image_config_68_25["source_image"] = $path;
+        $image_config_68_25['create_thumb'] = FALSE;
+        $image_config_68_25['maintain_ratio'] = TRUE;
+        $image_config_68_25['new_image'] = $path_month . '/' . $date . '/680_250/' . $file_name;
+        $image_config_68_25['quality'] = "100%";
+        $image_config_68_25['width'] = 680;
+        $image_config_68_25['height'] = 250;
+        $dim = (intval($img_width) / intval($img_height)) - ($image_config_68_25['width'] / $image_config_68_25['height']);
+        $image_config_68_25['master_dim'] = ($dim > 0) ? "height" : "width";
+        $this->image_lib->initialize($image_config_68_25);
+        $this->image_lib->resize();
+
+        $image_config_60_44["image_library"] = "gd2";
+        $image_config_60_44["source_image"] = $path;
+        $image_config_60_44['create_thumb'] = FALSE;
+        $image_config_60_44['maintain_ratio'] = TRUE;
+        $image_config_60_44['new_image'] = $path_month . '/' . $date . '/600_440/' . $file_name;
+        $image_config_60_44['quality'] = "100%";
+        $image_config_60_44['width'] = 600;
+        $image_config_60_44['height'] = 440;
+        $dim = (intval($img_width) / intval($img_height)) - ($image_config_60_44['width'] / $image_config_60_44['height']);
+        $image_config_60_44['master_dim'] = ($dim > 0) ? "height" : "width";
+        $this->image_lib->initialize($image_config_60_44);
+        $this->image_lib->resize();
+
+        $image_config_33_20["image_library"] = "gd2";
+        $image_config_33_20["source_image"] = $path;
+        $image_config_33_20['create_thumb'] = FALSE;
+        $image_config_33_20['maintain_ratio'] = TRUE;
+        $image_config_33_20['new_image'] = $path_month . '/' . $date . '/330_200/' . $file_name;
+        $image_config_33_20['quality'] = "100%";
+        $image_config_33_20['width'] = 330;
+        $image_config_33_20['height'] = 200;
+        $dim = (intval($img_width) / intval($img_height)) - ($image_config_33_20['width'] / $image_config_33_20['height']);
+        $image_config_33_20['master_dim'] = ($dim > 0) ? "height" : "width";
+        $this->image_lib->initialize($image_config_33_20);
+        $this->image_lib->resize();
+
+        $image_config_15_15["image_library"] = "gd2";
+        $image_config_15_15["source_image"] = $path;
+        $image_config_15_15['create_thumb'] = FALSE;
+        $image_config_15_15['maintain_ratio'] = TRUE;
+        $image_config_15_15['new_image'] = $path_month . '/' . $date . '/150_150/' . $file_name;
+        $image_config_15_15['quality'] = "100%";
+        $image_config_15_15['width'] = 150;
+        $image_config_15_15['height'] = 150;
+        $dim = (intval($img_width) / intval($img_height)) - ($image_config_15_15['width'] / $image_config_15_15['height']);
+        $image_config_15_15['master_dim'] = ($dim > 0) ? "height" : "width";
+        $this->image_lib->initialize($image_config_15_15);
+        $this->image_lib->resize();
+    }
+
+    /**
+     * To show all media images.
+     */
+    public function all_media_imgs() {
+        $all_imgs = $this->admin_model->getAllOrdered("media", "media_id", "DESC");
+        echo json_encode($all_imgs);
+        die();
+    }
+
+    public function tags_input_tags() {
+        if (isset($_REQUEST['q'])) {
+            $all_tags = $this->admin_model->getAllOrdered("tags", "id", "DESC");
+            $q = $_REQUEST['q'];
+            $q = strtolower($q);
+            $length = strlen($q);
+            $new_array = array();
+            $sr = 0;
+            foreach ($all_tags as $tag) {
+                $tag_name = substr($tag->tag_name, 0, $length);
+                $tag_name = strtolower($tag_name);
+                if ($q == $tag_name) {
+                    $new_array[$sr] = $tag;
+                    echo "<li onclick='tag_select(this)' data-id='" . $new_array[$sr]->id . "'><a href='javascript:void(0)'>" . $new_array[$sr]->tag_name . "</a></li>";
+                }
+                $sr++;
+            }
+        }
+        die();
+    }
+    
+    public function all_ad(){
+        $this->data->meta = 'ad_manager';
+        $this->data->active = 'all_ad';
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/all_ad', $this->data);
+    }
+    
+    public function new_ad(){
+        $this->data->meta = 'ad_manager';
+        $this->data->active = 'new_ad';
+        $this->data->category = $this->admin_model->getAll('categories');
+        $this->template->load('admin/template/template_dashboard_admin', 'admin/new_ad', $this->data);
+    }
+
+}

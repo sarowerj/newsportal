@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on  : Jun 25, 2016, 1:16:15 PM
+    Author      : Sarower
+    Uses        : To make media modal popup.
+*/
+
+.all_media .main_content{
+    background:white;
+    padding:15px 0 15px 15px;
+}
+.all_media .all_items .item{
+    display:inline-block;
+    width:calc(16.66666% - 18px);
+    margin:0 15px 15px 0;
+    height:150px;
+    overflow: hidden;
+    border:1px solid #dfdfdf;
+}
+.modal .all_media .all_items .item{
+    width:calc(20% - 12px);
+    position: relative;
+    transition: all .25s;
+}
+.modal .all_media .all_items .item.selected,.modal .all_media .all_items .item.current{
+    border: 5px solid #93c0da;
+}
+.modal .all_media .all_items .item.selected .check_icon{
+    opacity: 1;
+}
+.modal .all_media .all_items .item:nth-child(5n+0){
+    margin-right: 0;
+}
+.modal #media_details .demo_image{
+    height: 135px;
+    overflow: hidden;
+}
+.modal .all_media .all_items .check_icon{
+    width: 40px;
+    height: 40px;
+    background: #93c0da;
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    padding: 10px 14px;
+    color:white;
+    opacity: 0;
+    transition: all .25s;
+}
+.modal .all_media{
+    height:370px;
+    overflow-y: scroll;
+}
+.all_media .all_items .item .img_table{
+    display: table;
+    height:150px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,.1);
+    cursor: pointer;
+}
+.all_media .all_items .item .img_row{
+    display: table-row;
+}
+.all_media .all_items .item .img_row .img_col{
+    display:table-cell;
+    vertical-align: middle;
+}
+.all_media .all_items .item img{
+    width:100%;
+    min-width: 170px;
+}
+#media_details .demo_image{
+    margin-bottom: 20px;
+}
+#media_details .demo_image img{
+    width:100%;
+}
+
+.modal .alert_msg{
+    position: absolute;
+    top: 0;
+}

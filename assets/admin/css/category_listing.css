@@ -1,0 +1,55 @@
+/*
+This sheet is for category listing. 
+*/
+/* 
+    Created on : Apr 23, 2016, 12:14:07 PM
+    Author     : Sarower
+*/
+
+.category_list_shorted{ 
+    user-select:none;
+    -moz-user-select:none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+}
+.category_list_shorted li{
+    padding:0px;
+    margin:5px;
+    display:table;
+    min-width: 350px;
+}
+.category_list_shorted li .open_icon{
+    float:right;
+}
+li .open_icon{
+    float:right;
+}
+li span.details{
+    display:none;
+}
+ul, li {
+    list-style-type:none;
+}
+
+ul, #sTree2, #sTreePlus { padding:0; }
+#sTree2 li, #sTreePlus li, ul#sortableListsBase li {
+    margin:5px;
+    margin-right:0;
+    margin-bottom: 0;
+}
+
+#sTree2 li ul, li ul{
+    margin-left:30px;
+}
+li div {
+    padding:7px;
+    border:1px solid #dadada;
+    background-color:#f9f9f9;
+    max-width: 350px;
+    cursor:move;
+}
+
+
+img.descPicture.descPictureClose { width:150px; }
+
+#sTree2, #sTreePlus { margin:10px auto; }

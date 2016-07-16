@@ -1,0 +1,76 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2016, 1:56:26 PM
+    Author     : Sarower
+*/
+
+.main-article-content h1.article-title {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Titillium Web', sans-serif;
+    margin-bottom: 15px;
+    color: #232323;
+}
+.news_details .article-photo .set-image-border{
+    width:100%;
+}
+.news_details .article-photo .set-image-border img{
+    border:5px solid #f0f0f0;
+    width:100%;
+}
+.set-image-border:before{
+    width:calc(100% + 10px);
+    box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.05);
+}
+
+
+/*==============News Details ================*/
+.news_details .slider-container .slider-content{
+    height: auto;
+    max-height: 440px;
+}
+.news_details .slider-container .slider-content ul li{
+    height:440px;
+}
+.news_details .slider-container .slider-content ul{
+    height:100%;
+}
+.news_details .slider-container .slider-content ul li>a{
+    display:block;
+    box-sizing: border-box;
+    height:100%;
+    vertical-align: middle;
+}
+.news_details .slider-container .slider-content ul li>a .set-image-border{
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 !important;
+    display: flex;
+}
+.news_details .slider-container .slider-content img{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto !important;
+}
+.news_details .slider-container .slider-content .slider-info{
+    background: rgba(0,0,0,.35);
+    max-width: 100%;
+    left: 0;
+    right: 0;
+    top: initial;
+    bottom: 0;
+    font-weight: 100;
+    transition: all .25s;
+    opacity: 0;
+}
+.news_details .slider-container .slider-content:hover .slider-info{
+    opacity:1;
+}

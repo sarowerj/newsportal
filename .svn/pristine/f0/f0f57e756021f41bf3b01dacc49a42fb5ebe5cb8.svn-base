@@ -1,0 +1,255 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Admin_model extends Ci_Model {
+
+    /**
+     * Function Name = insert() <br />
+     * Uses = This function is to store data into any table. <br />
+     * Parameters = $tbl_name, $data
+     * @param string $tbl_name is name of Table
+     * @param array $data is form data.
+     * @return boolean Always return true or false.
+     */
+    public function insert($tbl_name, $data) {
+        $this->db->insert($tbl_name, $data);
+    }
+
+    /**
+     * Function Name = getAll() <br />
+     * Uses = This function is to get all data from any table. <br />
+     * Parameters = $tbl_name
+     * @param string $tbl_name is name of Table
+     * @return array It returns an associative array with object data.
+     */
+    public function getAll($tbl_name) {
+        $query = $this->db->get($tbl_name);
+        return $query->result();
+    }
+
+    /**
+     * Function Name = getAllOrdered() <br />
+     * Uses = This function is to get all data from any table by ascending or descending ordered. <br />
+     * Parameters = $tbl_name,$sort_by,$sort_style
+     * @param string $tbl_name is name of table.
+     * @param string $sort_by name of column to sort data.
+     * @param string $sort_style is to order of sorting. Value wile be ASC or DESC
+     * @return array It returns an associative array with object data.
+     */
+    public function getAllOrdered($tbl_name, $sort_by, $sort_style) {
+        $query = $this->db->order_by($sort_by, $sort_style)
+                ->get($tbl_name);
+        return $query->result();
+    }
+
+    public function getAllNewspost($limit, $offset) {
+        $query = $this->db->select("newspost.newspost_id,newspost_title,newspost.cat_id,newspost.newspost_date,newspost.newspost_date,newspost.status,newspost.author_id")
+                ->from("newspost")
+                ->order_by('newspost.newspost_id', 'desc')
+                ->where('newspost.status!="Delete"')
+                ->limit($limit, $offset)
+                ->get();
+        return $query->result();
+    }
+
+    public function getDeletedNewspost($limit, $offset) {
+        $query = $this->db->select("newspost.newspost_id,newspost_title,newspost.cat_id,newspost.newspost_date,newspost.newspost_date,newspost.status,newspost.author_id")
+                ->from("newspost")
+                ->order_by('newspost.newspost_id', 'desc')
+                ->where('newspost.status="Delete"')
+                ->limit($limit, $offset)
+                ->get();
+        return $query->result();
+    }
+
+    public function total_post() {
+        $this->db->where('status!=','Delete');
+        $all_rows = $this->db->get('newspost');
+        $total = $all_rows->num_rows();
+        return $total;
+    }
+    
+    public function total_deleted_post() {
+        $this->db->where('status','Delete');
+        $all_rows = $this->db->get('newspost');
+        $total = $all_rows->num_rows();
+        return $total;
+    }
+    
+    
+
+    public function getUserIdName() {
+        $query = $this->db->select('users.id,users.user_nicename')
+                ->from('users')
+                ->get();
+        return $query->result();
+    }
+
+    /**
+     * Function Name = getById() <br />
+     * Uses = This function is to get selected row from any table <br />
+     * Parameters = $tbl_name, $col, $where
+     * @param string $tbl_name is name of table.
+     * @param string $col name of column to match.
+     * @param string $where is value, which will match with <b>$col</b>
+     * @return array It returns an associative array with object data.
+     */
+    public function getById($tbl_name, $col, $where) {
+        $query = $this->db->get_where($tbl_name, array($col => $where));
+        return $query->result();
+    }
+
+    /**
+     * Function Name = getNewsPostMeta() <br />
+     * Uses = This function is to get meta values. <br />
+     * Parameters = $tbl_name, $column_name, $column_name_val,$column_name_2,$column_name_2_val.
+     * @param string $tbl_name == Name of table. ==> news_portal_postmeta
+     * @param string $column_name == Name of column. ==> newspost_id.
+     * @param int $column_name_val == Value of <b>$column_name</b> ==> News post id.
+     * @param string $column_name_2 == Name of second column. ==> meta_key.
+     * @param string $column_name_2_val == Value of <b>$column_name_2</b> ==> meta_value.
+     * @return array Will return an associative array.
+     */
+    public function getNewsPostMeta($tbl_name, $column_name, $column_name_val, $column_name_2, $column_name_2_val) {
+        $query = $this->db->get_where($tbl_name, array($column_name => $column_name_val, $column_name_2 => $column_name_2_val));
+        return $query->result();
+    }
+
+    /**
+     * Get all categories from database.
+     * @param type $categories 
+     * @return type type is an associative array. 
+     */
+    public function categories_As_Articl($categories) {
+        $cat_ids = explode(',', $categories);
+        $q = $this->db
+                ->where_in('id', $cat_ids)
+                ->get('categories');
+        return $q->result();
+    }
+
+    /**
+     * Update edited categories data to categories table.
+     * @param type $id is cat id, where will update edited data.
+     * @param type $data is new data which will be marge with old data by id.
+     * @return type Boolean.
+     */
+    function update($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('categories', $data);
+    }
+
+    /**
+     * Update any edited data to database.
+     * @param type $id is main id, where will update edited data.
+     * @param type $data is new data which will be marge with old data by id.
+     * @return type Boolean.
+     */
+    function updateById($table, $id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update($table, $data);
+    }
+
+    /**
+     * Function Name = delete() <br />
+     * Uses = This function is to delete selected row from any table. <br />
+     * Parameters = $table, $col, $id
+     * @param string $tbl_name == Name of table.
+     * @param string $col == Name of column to match.
+     * @param int $id == Value of <b>$col</b> to match.
+     * @return boolean Will return true or false.
+     */
+    public function delete($table, $col, $id) {
+        $this->db->where($col, $id);
+        $this->db->delete($table);
+    }
+
+    /**
+     * Function Name = insert_newspost() <br />
+     * Uses = This function is to save new newspost to <b>newspost</b> and <b>postmeta</b> table<br />
+     * Parameters = $data_newspost, $data_newspost_meta
+     * @param array $data_newspost is form data which will saved to <b>newspost</b> table
+     * @param array $data_newspost_meta is form data which will saved to <b>postmeta</b> table with immediately saved post id.
+     * @return boolean It always returns true or false.
+     */
+    public function insert_newspost($data_newspost, $data_newspost_meta) {
+        $this->db->insert('newspost', $data_newspost);
+        $last_insert_id = $this->db->insert_id();
+        $insert_id = $this->db->insert_id();
+        $post_id = array('newspost_id' => $insert_id);
+        for ($i = 0; $i < sizeof($data_newspost_meta); $i++) {
+            $new_arr = $data_newspost_meta[$i] + $post_id;
+            $this->db->insert('postmeta', $new_arr);
+        }
+        return $last_insert_id;
+    }
+
+    public function update_newspost($newspost_id, $new_content, $news_meta) {
+        $this->db->trans_start();
+        $this->db->where('newspost_id', $newspost_id);
+        $this->db->update('newspost', $new_content);
+        for ($i = 0; $i < sizeof($news_meta); $i++) {
+            $upp_arr = array(
+                'newspost_id' => $newspost_id,
+                'meta_key' => $news_meta[$i]['meta_key']
+            );
+            $check = $this->db->get_where('postmeta', $upp_arr);
+            if ($check->num_rows() > 0) {
+                $this->db->update('postmeta', $news_meta[$i], $upp_arr);
+            } else {
+                $post_id = array('newspost_id' => $newspost_id);
+                $data = $news_meta[$i] + $post_id;
+                $this->db->insert('postmeta', $data);
+            }
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+    }
+
+    public function updateBreakingStatus($breaking_status_array) {
+        $this->db->where('newspost_id', $breaking_status_array['newspost_id'])
+                ->where('meta_key', 'post_breaking_status');
+        $query = $this->db->update('postmeta', $breaking_status_array);
+        if ($query == 1) {
+            if ($breaking_status_array['meta_value'] == 'on') {
+                echo "success_on";
+            } else {
+                echo "success_off";
+            }
+        } else {
+            echo "failed";
+        }
+    }
+
+    /**
+     * This function is to upload images to uploads folder and store this path to <b>media</b> table <br />
+     * @param array $files is images informations from form.
+     * @return boolean If hapen any error, then it will not upload file and send and error.
+     */
+    public function save_media($files) {
+        $this->db->insert('news_portal_media', $files);
+    }
+
+    function check_slug($slug) {
+        $q = $this->db->select('newspost_slug')
+                ->from('newspost')
+                ->where('newspost_slug', $slug)
+                ->get();
+        if ($q->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+
+?>

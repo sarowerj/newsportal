@@ -1,0 +1,101 @@
+<div class="alert alert-success alert-dismissible alert_msg updated" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success!</strong> New category added successfully.
+</div>
+<main class="content all_articles">
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo validation_errors(); ?>
+            <?php echo form_open('admin/save_categories'); ?>
+            <div class="content_header">
+                <h3>Add New Category</h3>
+                <?php
+                $name = array(
+                    'name' => 'name',
+                    'id' => 'name',
+                    'placeholder' => 'Name',
+                    'value' => '',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'rules' => 'required'
+                );
+                $slug = array(
+                    'name' => 'slug',
+                    'id' => 'slug',
+                    'placeholder' => 'Slug',
+                    'value' => '',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'rules' => 'required'
+                );
+                $description = array(
+                    'name' => 'description',
+                    'id' => 'description',
+                    'placeholder' => 'Description',
+                    'value' => '',
+                    'class' => 'form-control',
+                    'required' => 'required',
+                    'rows' => '5',
+                    'rules' => 'required'
+                );
+                $options = array(
+                    'small' => 'Small Shirt',
+                    'med' => 'Medium Shirt',
+                    'large' => 'Large Shirt',
+                    'xlarge' => 'Extra Large Shirt',
+                );
+                ?>
+                <div class="form-group">
+                    <?php echo form_label('Name', 'name'); ?>
+                    <?php echo form_input($name); ?>
+                    <span class="hints">The name is how it appears on your site.</span>
+                </div>
+                <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <?php echo form_input($slug); ?>
+                    <span class="hints">The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</span>
+                </div>
+                <div class="form-group">
+                    <label for="parent">Parent</label>
+                    <?php
+                    $array = json_decode(json_encode($all_data), true);
+                    $names = array_column($array, 'name');
+                    $ids = array_column($array, 'id');
+                    $options = array_combine($ids, $names);
+                    echo form_dropdown('parent', $options, '','class="form-control" id="parent"');
+                    ?>
+                    <span class="hints">Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.</span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <?php echo form_textarea($description); ?>
+                    <span class="hints">The description is not prominent by default; however, some themes may show it.</span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add New Category" name="add_new_cat_btn" class="btn btn-primary" />
+                </div>
+            </div>
+            <?php
+            echo form_close();
+            ?>
+        </div> 
+    </div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#all_articles_list').DataTable({
+            "order": [[2, "desc"]]
+        });
+
+<?php
+if (isset($_SESSION['status'])) {
+    if ($_SESSION['status'] == "success") {
+        ?>
+                $('.alert_msg.updated').show().delay(3000).fadeTo("fast", 0);
+        <?php
+    }
+}
+?>
+    });
+</script>

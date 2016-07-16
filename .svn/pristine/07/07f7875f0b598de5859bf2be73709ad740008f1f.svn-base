@@ -1,0 +1,25 @@
+var elm = $("#tokenfield");
+var position = elm.offset();
+
+
+source: function (request, response) {
+                                         var html = '';
+                                         $.ajax({
+                                         dataType: "json",
+                                         type: 'GET',
+                                         url: '<?php echo base_url() . 'admin/tags' ?>',
+                                         success: function (data) {
+                                         $.each(data, function (index, value) {
+                                         //$('.ui-autocomplete').show();
+                                         //var dd++;
+                                         $('.ui-autocomplete').css({'left':position.left,'top': position.top+32,'display':'block','z-index':999999});
+                                         html += '<li id="main_id'+dd+'" class="ui-menu-item" tabindex="-1">' + value.tag_name + '</li>';
+                                         });
+                                         $('#ui-id-1').html(html);
+                                         
+                                         },
+                                         error: function (data) {
+                                         $('#tokenfield').removeClass('ui-autocomplete-loading');
+                                         }
+                                         });
+                                         },
