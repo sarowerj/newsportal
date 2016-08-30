@@ -32,8 +32,7 @@
                     <script>
                         CKEDITOR.replace('news_content', {
                             height: 395
-                        });
-                    </script>
+                        });</script>
                 </div>
 
                 <div class="row">
@@ -53,8 +52,8 @@
                                 <input type="text" class="form-control featured_video_url" name="featured_video_url" id="" />
                                 <div class="msg text-danger"></div>
                                 <script type="text/javascript">
-                                    $(document).ready(function () {
-                                        $('.featured_video_url').keyup(function () {
+                                    $(document).ready(function() {
+                                        $('.featured_video_url').keyup(function() {
                                             var url = $('.featured_video_url').val();
                                             var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
                                             if (videoid != null) {
@@ -96,8 +95,8 @@
                         </div>
                     </div>
                     <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('.select_media_btn').click(function () {
+                        $(document).ready(function() {
+                            $('.select_media_btn').click(function() {
                                 previous_id = $(this).siblings('input').val();
                                 parent_id = $(this).attr('data-parent_id');
                                 multiple = $(this).attr('data-multiple');
@@ -105,6 +104,178 @@
                             });
                         })
                     </script>
+
+                    <!--Widget Featured Gallery-->
+                    <div class="col-xs-12 col-md-4">
+                        <div class="box box-default widget">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Gallery Images</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <h5>Select image for articles.</h5>
+                                <div class="">
+                                    <input type="hidden" name="featured_img_input" value="25,78" class="form-control" />
+                                    <div class="thumb_container">
+                                        <img src="<?php echo base_url(); ?>assets/common/images/no_image.jpg" alt="" class="img-responsive"/>
+                                    </div>
+                                    <a href="javascript:void(0)" onclick="rs_media_prop(this)" class="btn btn-default" data-fld-name="featured_img_input" data-multiple="false">Select Image</a>
+                                    <a href="javascript:void(0)"  class="remove_media">Remove Images</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function rs_media_prop(THIS) {
+                            var fld_name = $(THIS).attr('data-fld-name');
+                            var fld_multiple = $(THIS).attr('data-multiple');
+                            var existing_ids = $('input[name="' + fld_name + '"]').val();
+                            $('#media_modal').modal('show');
+                            $('#media_modal').on('hidden.bs.modal', function() {
+                                reset_rs_media();
+                            })
+                        }
+
+                        function reset_rs_media() {
+                            $('h4.file_name').text('No file choosen');
+                        }
+
+                        $(document).ready(function() {
+                            $('.select_file_btn').change(function() {
+                                var fullPath = $(this).val();
+                                if (fullPath) {
+                                    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                                    var filename = fullPath.substring(startIndex);
+                                    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                                        filename = filename.substring(1);
+                                    }
+                                    $('.file_name').text(filename);
+                                }
+                            });
+                        });
+                    </script>
+                    <div class="modal fade rs_media_modal" id="media_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Select Media</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation"><a href="#upload_media" aria-controls="upload_media" role="tab" data-toggle="tab">Upload Media</a></li>
+                                            <li role="presentation" class="active"><a href="#select_media" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane" id="upload_media">
+                                                <form>
+                                                    <div class="drop_zone">
+                                                        <div class="upload_button">
+                                                            <h4 class="file_name">No file chosen.</h4>
+                                                            <span class="btn btn-primary">Select File</span>
+                                                            <input class="select_file_btn" type="file" name="select_file_btn">
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane active" id="select_media">
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <div class="row">
+                                                            <?php
+                                                            for ($i = 0; $i < 20; $i++) {
+                                                                ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="item">
+                                                                        <div class="img_cont">
+                                                                            <img src="<?php echo base_url(); ?>assets/common/images/no_image.jpg" alt="" class="img-responsive"/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="display_thumb">
+                                                            <img src="<?php echo base_url(); ?>assets/common/images/no_image.jpg" alt="" class="img-responsive"/>
+                                                        </div>
+                                                        <div class="media_details">
+                                                            <form>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" type="text" name="media_title" placeholder="Media Title"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control" name="media_details" placeholder="Media Details" rows="5"></textarea>
+                                                                </div>
+                                                                <div class="form-group text-right">
+                                                                    <input type="submit" class="btn btn-primary" value="Save"/>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        .rs_media_modal .tab-pane{
+                            min-height:350px;
+                            position: relative;
+                            padding-top: 30px;
+                        }
+                        .rs_media_modal .tab-pane .drop_zone{ 
+                            min-height:350px;
+                            height:250px;
+                            width:100%;
+                            background: white;
+                            border: 2px dashed #bbb;
+                            display:table;
+                            text-align: center;
+                        }
+                        .rs_media_modal .tab-pane .drop_zone .upload_button{
+                            display:table-cell;
+                            vertical-align: middle;
+                        }
+                        .rs_media_modal .tab-pane .select_file_btn{
+                            position: absolute;
+                            left:0;
+                            right:0;
+                            bottom:0;
+                            top:0;
+                            background:green;
+                            width:100%;
+                            opacity:0;
+                            cursor: pointer;
+                        }
+                        .rs_media_modal #select_media .item{
+                            margin-bottom:30px;
+                            min-height: 180px;
+                            display:table;
+                            box-shadow: inset 0 0 50px rgba(0,0,0,.1);
+                        }
+                        .rs_media_modal #select_media .item .img_cont{
+                            display:table-cell;
+                            vertical-align: middle;
+                        }
+
+                    </style>
 
 
                     <!--Widget Featured Gallery-->
@@ -198,11 +369,11 @@
                             <span class="hints">Type or search tags.</span>
                         </div>
                         <script type="text/javascript">
-                            $(document).ready(function () {
+                            $(document).ready(function() {
                                 /**
                                  * Will send ajax request to create new tag from this page.
                                  */
-                                $(".new_tag_form a").click(function () {
+                                $(".new_tag_form a").click(function() {
                                     var tag_value = $(this).siblings('input').val();
                                     if (!empty(tag_value)) {
                                         $.ajax({
@@ -211,7 +382,7 @@
                                             contentType: false,
                                             processData: false,
                                             type: 'post',
-                                            success: function (data) {
+                                            success: function(data) {
                                                 if (data == "True") {
                                                     tags_input(" ");
                                                     $("#tags").slideDown();
@@ -230,7 +401,7 @@
                                  * When user will compose tags name, 
                                  * then it will search and show dropdown with result of tags name.
                                  **/
-                                $("#tags_input").keyup(function () {
+                                $("#tags_input").keyup(function() {
                                     var str = $(this).val();
                                     tags_input(str);
                                     $("#tags").slideDown();
@@ -240,7 +411,7 @@
                                 /**
                                  * When user will focus on input field, then it will appear dropdown with tags from database.
                                  **/
-                                $("#tags_input").focus(function () {
+                                $("#tags_input").focus(function() {
                                     var str = $(this).val();
                                     tags_input(str);
                                     $("#new_tag_form").hide();
@@ -251,7 +422,7 @@
                                 /**
                                  * Will hide dropdown when user clicked on the body.
                                  * */
-                                $('body').click(function (e) {
+                                $('body').click(function(e) {
                                     var target = $(e.target);
                                     if (!target.is('#tags_input') && !target.is('#tags')) {
                                         if ($('#tags').is(':visible'))
@@ -260,7 +431,6 @@
                                     }
                                 });
                             });
-
                             /**
                              * Will add selected tags to the above of tags input.
                              **/
@@ -305,7 +475,7 @@
                                     contentType: false,
                                     processData: false,
                                     type: 'post',
-                                    success: function (data) {
+                                    success: function(data) {
                                         //var list = '';
                                         //var json = $.parseJSON(data);
                                         //$.each(json, function (index, value) {
@@ -344,7 +514,7 @@
                         ?>
                         <input id="breaking_news" type="checkbox" name="breaking_news" <?php echo ($breaking_status == 'on') ? 'checked' : ''; ?>>
                         <script type="text/javascript">
-                            $(document).ready(function () {
+                            $(document).ready(function() {
                                 $("#breaking_news").bootstrapSwitch();
                             })
                         </script>
@@ -432,7 +602,7 @@
             url: base_url + 'admin/all_media_list/' + media_id,
             type: 'post',
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 data = $.parseJSON(data);
                 data = data[0];
                 $('#file_name').html(data.media_name);
@@ -459,7 +629,7 @@
         $('#media_description').val('');
     }
 
-    $("#media_details").submit(function (event) {
+    $("#media_details").submit(function(event) {
         event.preventDefault();
         var media_id = $('#media_details').find('#media_id').val();
         var media_caption = $('#media_details').find('#file_caption').val();
@@ -468,12 +638,11 @@
             type: "POST",
             url: '<?php echo base_url(); ?>admin/update_media_details',
             data: {media_id: media_id, media_caption: media_caption, media_description: media_description},
-            success: function (result) {
+            success: function(result) {
                 $('.alert_msg.updated').fadeIn().delay(3000).fadeOut("fast", 0);
             }
         });
     });
-
     /**
      * This function is for load ajax media.
      * @type String
@@ -485,7 +654,6 @@
             keyboard: true,
             show: true
         });
-
         if (previous_id == 'null') {
             $('#modal_hidden_input').val('');
         } else {
@@ -501,11 +669,10 @@
             processData: false,
             type: 'post',
             datatype: 'json',
-            success: function (data) {
+            success: function(data) {
                 var json = $.parseJSON(data);
-                $.each(json, function (index, value) {
+                $.each(json, function(index, value) {
                     var src = '<?php echo base_url() ?>' + 'uploads/' + value.media_path + '150_150/' + value.media_name;
-
                     if (active == 1 && index == 0) {
                         status = 'selected';
                         var old_value = $('#modal_hidden_input').val();
@@ -526,9 +693,7 @@
                             '</div>';
                 });
                 $('#existing_media .all_items').html(html_text);
-
-
-                $('.modal .all_media .all_items .item').click(function () {
+                $('.modal .all_media .all_items .item').click(function() {
                     var demo_image_src = $(this).children().children().children().children().attr('src');
                     var media_id = $(this).attr('data-id');
                     $('.modal .all_media .all_items .item').removeClass('current');
@@ -538,9 +703,7 @@
                     $(this).toggleClass('selected');
                     $(this).addClass('current');
                     $('#media_details .demo_image img').attr('src', demo_image_src);
-
                     modal_hidden_input = $('#modal_hidden_input').val();
-
                     if ($(this).hasClass('selected')) {
                         if (modal_hidden_input.length == 0) {
                             $('#modal_hidden_input').val(',' + media_id);
@@ -558,7 +721,7 @@
                     media_details_function(media_id);
                 })
 
-                $('.set_featured_image_button').click(function () {
+                $('.set_featured_image_button').click(function() {
                     media_ids = $('#modal_hidden_input').val().slice(1);
                     media_id_array = media_ids.split(',');
                     last_img_src = $('[data-id="' + media_id_array[0] + '"]').children().children().children().children().attr('src');
@@ -583,9 +746,9 @@
     }
 
 
-    $(function () {
+    $(function() {
         'use strict';
-        $('#brows_file').change(function () {
+        $('#brows_file').change(function() {
             var file_data = $(this).prop("files")[0];
             var form_data = new FormData();
             form_data.append("file", file_data)
@@ -597,7 +760,7 @@
                 processData: false,
                 data: form_data,
                 type: 'post',
-                success: function (data) {
+                success: function(data) {
                     $('#dropzone').addClass('uploading');
                     if (data == 'error') {
                         alert('File Type not Allow.');
@@ -610,14 +773,12 @@
                 }
             });
         });
-
-        $('.remove_media').click(function () {
+        $('.remove_media').click(function() {
             $(this).siblings('input').val('null');
             $(this).siblings('.thumb_container').children().attr('src', '<?php echo base_url('assets/common/images/no_image.jpg'); ?>')
         })
     }
     );
-
     /**
      * empty function is to check input field's value
      * @param {type} str

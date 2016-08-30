@@ -115,20 +115,16 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="ad_description">Type</label>
-                        <select name="category" id="category" class="selectpicker form-control">
-                            <option value="1_6">1" X 6"</option>
-                            <option value="4_4">4" X 4"</option>
-                            <option value="1_0">1" X Full width</option>
+                        <select name="category" id="category" class="selectpicker form-control" multiple>
+                            <option value="">Top</option>
+                            <option value="">Right</option>
                         </select>
                     </div>
                     <div class="col-sm-6">
                         <br />
-                        <span class="hints">Select your advertisment details. </span>
+                        <span class="hints">Select your page name to show this advertisment. </span>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
