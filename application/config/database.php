@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.10.166',
-	'username' => 'admin',
-	'password' => 'admin',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'drins_news_portal',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'news_portal_',
