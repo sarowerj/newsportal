@@ -121,7 +121,7 @@
                                     <div class="thumb_container">
                                         <img src="<?php echo base_url(); ?>assets/common/images/no_image.jpg" alt="" class="img-responsive"/>
                                     </div>
-                                    <a href="javascript:void(0)" onclick="rs_media_prop(this)" class="btn btn-default" data-fld-name="featured_img_input" data-multiple="false">Select Image</a>
+                                    <a href="javascript:void(0)" onclick="rs_media_prop(this)" class="btn btn-default" data-fld-name="featured_img_input" data-multiple="true">Select Image</a>
                                     <a href="javascript:void(0)"  class="remove_media">Remove Images</a>
                                 </div>
                             </div>
@@ -129,17 +129,37 @@
                     </div>
                     <script>
                         function rs_media_prop(THIS) {
+                            event.preventDefault();
                             var fld_name = $(THIS).attr('data-fld-name');
                             var fld_multiple = $(THIS).attr('data-multiple');
                             var existing_ids = $('input[name="' + fld_name + '"]').val();
                             $('#media_modal').modal('show');
                             $('#media_modal').on('hidden.bs.modal', function() {
                                 reset_rs_media();
-                            })
+                            });
+
+                            if (fld_multiple === 'false') {
+                                $('.rs_media_modal .all_medias .item').click(function() {
+                                    $('.rs_media_modal .all_medias .item').removeClass('active').removeClass('selected');
+                                    $(this).addClass('active').addClass('selected');
+                                });
+                            } else if (fld_multiple === 'true') {
+                                $('.rs_media_modal .all_medias .item').click(function() {
+                                    $('.rs_media_modal .all_medias .item').removeClass('active');
+                                    $(this).addClass('active').addClass('selected');
+                                    if ($(this).hasClass('selected')) {
+                                        //$(this).addClass('active').removeClass('selected');
+                                    }
+                                    else {
+                                        $(this).addClass('active').addClass('selected');
+                                    }
+                                });
+                            }
                         }
 
                         function reset_rs_media() {
                             $('h4.file_name').text('No file choosen');
+                            $('.rs_media_modal .all_medias .item').removeClass('active').removeClass('selected');
                         }
 
                         $(document).ready(function() {
@@ -188,18 +208,21 @@
                                             <div role="tabpanel" class="tab-pane active" id="select_media">
                                                 <div class="row">
                                                     <div class="col-md-9">
-                                                        <div class="row">
-                                                            <?php
-                                                            for ($i = 0; $i < 20; $i++) {
-                                                                ?>
-                                                                <div class="col-md-3">
+                                                        <div class="all_medias">
+                                                            <div class="row">
+                                                                <?php
+                                                                for ($i = 0; $i < 20; $i++) {
+                                                                    ?> 
                                                                     <div class="item">
                                                                         <div class="img_cont">
                                                                             <img src="<?php echo base_url(); ?>assets/common/images/no_image.jpg" alt="" class="img-responsive"/>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            <?php } ?>
+                                                                        <div class="check">
+                                                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                                                        </div>
+                                                                    </div> 
+                                                                <?php } ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -219,7 +242,7 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                    </div>
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
@@ -263,18 +286,58 @@
                             width:100%;
                             opacity:0;
                             cursor: pointer;
-                        }
-                        .rs_media_modal #select_media .item{
-                            margin-bottom:30px;
-                            min-height: 180px;
-                            display:table;
-                            box-shadow: inset 0 0 50px rgba(0,0,0,.1);
-                        }
+                        } 
                         .rs_media_modal #select_media .item .img_cont{
                             display:table-cell;
                             vertical-align: middle;
                         }
-
+                        .rs_media_modal .display_thumb{
+                            margin-bottom: 15px;
+                        }
+                        .rs_media_modal .display_thumb img{
+                            width:100%;
+                        }
+                        .rs_media_modal .all_medias{
+                            max-height: 385px;
+                            overflow-y: scroll;
+                            padding:0 15px;
+                        }
+                        .rs_media_modal .all_medias .item{
+                            width:calc(20% - 12px);
+                            float:left;
+                            margin-right: 15px;
+                            margin-bottom:30px;
+                            min-height: 143px;
+                            display:table;
+                            box-shadow: inset 0 0 50px rgba(0,0,0,.1);
+                            cursor: pointer;
+                            border:5px solid white;
+                            position: relative;
+                        }
+                        .rs_media_modal .all_medias .item .check{
+                            position: absolute;
+                            right:0;
+                            bottom:0;
+                            background:#93c0da;
+                            color:white;
+                            width:30px;
+                            height:30px;
+                            text-align: center;
+                            padding:5px;
+                            opacity:0;
+                        }
+                        .rs_media_modal .all_medias .item:nth-child(5n+0){
+                            margin-right:0;
+                        }
+                        .rs_media_modal .all_medias .item.active{
+                            border:5px solid #93c0da;
+                        }
+                        .rs_media_modal .all_medias .item.selected{
+                            border:5px solid #93c0da;
+                        }
+                        .rs_media_modal .all_medias .item.selected .check{
+                            opacity:1;
+                        }
                     </style>
 
 
